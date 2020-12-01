@@ -1,0 +1,12 @@
+name: aoc
+channels:
+  - conda-forge
+dependencies:
+  - ipykernel
+  - requests
+  - beautifulsoup4
+  - pip
+  - numpy
+  - matplotlib
+  - pip:
+    - advent-of-code-data
