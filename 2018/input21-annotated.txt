@@ -1,0 +1,31 @@
+seti 123 0 1         LABEL 0
+bani 1 456 1         reg1 &= 456
+eqri 1 72 1          reg1 = reg1 == 72
+addr 1 3 3           JUMP OVER IF reg1
+seti 0 0 3           JUMP 0
+seti 0 7 1           reg1 = 0
+bori 1 65536 4       LABEL 5: reg4 = reg1 | 2**16
+seti 3798839 3 1     reg1 = 3798839
+bani 4 255 5         LABEL 7: reg5 = reg4 & 0xff
+addr 1 5 1           reg1 += reg5
+bani 1 16777215 1    reg1 &= 0xffffff
+muli 1 65899 1       reg1 *= 65899
+bani 1 16777215 1    reg1 &= 0xffffff
+gtir 256 4 5         reg5 = reg4 < 256
+addr 5 3 3           JUMP OVER IF reg5
+addi 3 1 3           JUMP OVER
+seti 27 6 3          JUMP TO 27
+seti 0 2 5           reg5 = 0
+addi 5 1 2           LABEL 17: reg2 = reg5 + 1
+muli 2 256 2         reg2 *= 256
+gtrr 2 4 2           reg2 = reg2 > reg4
+addr 2 3 3           JUMP OVER IF reg2
+addi 3 1 3           JUMP OVER
+seti 25 3 3          JUMP TO 25
+addi 5 1 5           reg5 += 1
+seti 17 1 3          JUMP to 17
+setr 5 6 4           LABEL 25: reg4 = reg5
+seti 7 8 3           JUMP to 7
+eqrr 1 0 5           LABEL 27: reg5 = reg1 == reg0
+addr 5 3 3           JUMP OVER IF reg5
+seti 5 6 3           JUMP TO 5

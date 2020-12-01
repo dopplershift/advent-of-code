@@ -1,0 +1,36 @@
+addi 4 16 4   JUMP TO 16
+seti 1 1 1    LABEL 0:  reg1 = 1
+seti 1 7 3    LABEL 1:  reg3 = 1
+mulr 1 3 2    LABEL 2:  reg2 = reg1 * reg3
+eqrr 2 5 2              reg2 = reg2 == reg5
+addr 2 4 4    JUMP OVER IF reg2 == reg5
+addi 4 1 4    JUMP OVER
+addr 1 0 0              reg0 += reg1
+addi 3 1 3              reg3 += 1
+gtrr 3 5 2              reg2 = reg3 > reg5
+addr 4 2 4    JUMP OVER IF reg3 > reg5
+seti 2 3 4    JUMP TO 2
+addi 1 1 1              reg1 += 1
+gtrr 1 5 2              reg2 = reg1 > reg5
+addr 2 4 4    JUMP OVER IF reg1 > reg5
+seti 1 6 4    JUMP TO 1
+mulr 4 4 4    EXIT
+addi 5 2 5    LABEL 16: reg5 += 2
+mulr 5 5 5              reg5 *= reg5
+mulr 4 5 5              reg5 *= 18
+muli 5 11 5             reg5 *= 11
+addi 2 1 2              reg2 += 1
+mulr 2 4 2              reg2 *= 21
+addi 2 6 2              reg2 += 6
+addr 5 2 5              reg5 += reg2
+addr 4 0 4    JUMP OVER IF reg0 
+seti 0 0 4    JUMP TO 0
+setr 4 5 2              reg2 = 27
+mulr 2 4 2              reg2 *= 28
+addr 4 2 2              reg2 += 29
+mulr 4 2 2              reg2 *= 30
+muli 2 14 2             reg2 *= 14
+mulr 2 4 2              reg2 *= 32
+addr 5 2 5              reg5 += reg2
+seti 0 5 0              reg0 = 0
+seti 0 2 4    JUMP TO 0
