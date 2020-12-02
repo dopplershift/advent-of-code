@@ -17,8 +17,13 @@ class Computer:
 
     @classmethod
     def fromfile(cls, fname):
-        return cls(readcode(fname))
+        with open(fname, 'rt') as infile:
+            return cls.fromstring(infile.readline())
 
+    @classmethod
+    def fromstring(cls, s):
+        return cls([int(c) for c in s.split(',')])
+    
     def reset(self, memory):
         self.memory = defaultdict(lambda: 0, zip(range(len(memory)), memory))
         self.input_data = []
@@ -140,16 +145,17 @@ class Computer:
     def arp(self):
         self.rel_ptr += self[1]
         self.i_ptr += 2
-        
 
-for code, inp, outp in [([109, -1, 4, 1, 99], None, -1),
-                        ([109, -1, 104, 1, 99], None, 1),
-                        ([109, -1, 204, 1, 99], None, 109),
-                        ([109, 1, 9, 2, 204, -6, 99], None, 204),
-                        ([109, 1, 109, 9, 204, -6, 99], None, 204),
-                        ([109, 1, 209, -1, 204, -106, 99], None, 204),
-                        ([109, 1, 3, 3, 204, 2, 99], [15], 15),
-                        ([109, 1, 203, 2, 204, 2, 99], [25], 25)]:
-    c = Computer(code)
-    c.run(inp)
-    assert c.output == [outp]
+        
+if __name__ == '__main__':
+    for code, inp, outp in [([109, -1, 4, 1, 99], None, -1),
+                            ([109, -1, 104, 1, 99], None, 1),
+                            ([109, -1, 204, 1, 99], None, 109),
+                            ([109, 1, 9, 2, 204, -6, 99], None, 204),
+                            ([109, 1, 109, 9, 204, -6, 99], None, 204),
+                            ([109, 1, 209, -1, 204, -106, 99], None, 204),
+                            ([109, 1, 3, 3, 204, 2, 99], [15], 15),
+                            ([109, 1, 203, 2, 204, 2, 99], [25], 25)]:
+        c = Computer(code)
+        c.run(inp)
+        assert c.output == [outp]
