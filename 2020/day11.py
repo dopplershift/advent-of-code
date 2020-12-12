@@ -81,4 +81,4 @@ if __name__ == '__main__':
 
     final2 = solve(board, neighbors2, 5)
     puz.answer_b = sum(i == 2 for row in final2 for i in row)
-    print(f'Part 1: {puz.answer_a}')
+    print(f'Part 1: {puz.answer_b}')
