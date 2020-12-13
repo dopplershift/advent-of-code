@@ -8,5 +8,6 @@ dependencies:
   - pip
   - numpy
   - matplotlib
+  - scipy
   - pip:
     - advent-of-code-data
