@@ -79,8 +79,8 @@ if __name__ == '__main__':
     puz = Puzzle(2018, 4)
     log = parse(puz.input_data.split('\n'))
 
-    puz.answer_a = strategy1(log)
+    puz.answer_a = int(strategy1(log))
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = strategy2(log)
+    puz.answer_b = int(strategy2(log))
     print(f'Part 2: {puz.answer_b}')

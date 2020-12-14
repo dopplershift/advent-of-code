@@ -51,7 +51,7 @@ if __name__ == '__main__':
     puz = Puzzle(2018, 3)
     claims = list(parse(puz.input_data.split('\n')))
 
-    puz.answer_a = find_overlap_area(claims)
+    puz.answer_a = int(find_overlap_area(claims))
     print(f'Part 1: {puz.answer_a}')
 
     puz.answer_b = find_nonoverlap(claims)

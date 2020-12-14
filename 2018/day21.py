@@ -9,7 +9,8 @@ if __name__ == '__main__':
     comp = Computer()
     comp.ipreg = ip
     comp.regs[0] = 1797184
-    puz.answer_a = comp.execute(code)
+    comp.execute(code)
+    puz.answer_a = 1797184
     print(f'Part 1: {puz.answer_a}')
 
     # Optimize their code with our div instruction
@@ -19,5 +20,6 @@ if __name__ == '__main__':
     comp = Computer()
     comp.ipreg = ip
     comp.regs[0] = 11011493
-    puz.answer_b = comp.execute(code)
+    comp.execute(code)
+    puz.answer_b = 11011493
     print(f'Part 2: {puz.answer_b}')

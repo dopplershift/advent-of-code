@@ -94,7 +94,7 @@ if __name__ == '__main__':
     sub_c = 'L,10,R,10,L,6'
     main = move_str.replace(sub_a, 'A').replace(sub_b, 'B').replace(sub_c, 'C')
 
-    c = Computer.fromfile('input17.txt')
+    c = Computer.fromstring(puz.input_data)
     c.memory[0] = 2
     c.run(main + '\n' + sub_a + '\n' + sub_b + '\n' + sub_c + '\nn\n')
     # c.display_ascii()

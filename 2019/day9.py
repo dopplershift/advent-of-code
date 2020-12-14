@@ -20,10 +20,10 @@ if __name__ == '__main__':
 
     c = Computer.fromstring(puz.input_data)
     c.run([1])
-    puz.answer_a = c.output
+    puz.answer_a = c.output[0]
     print(f'Part 1: {puz.answer_a}')
 
     c = Computer.fromstring(puz.input_data)
     c.run([2])
-    puz.answer_b = c.output
+    puz.answer_b = c.output[0]
     print(f'Part 2: {puz.answer_b}')

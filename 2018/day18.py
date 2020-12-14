@@ -54,7 +54,7 @@ if __name__ == '__main__':
     puz = Puzzle(2018, 18)
     grid = parse(puz.input_data.split('\n'))
     new_grid = iterate(grid)
-    puz.answer_a = score(new_grid)
+    puz.answer_a = int(score(new_grid))
     print(f'Part 1: {puz.answer_a}')
 
     minutes = 500
@@ -64,5 +64,5 @@ if __name__ == '__main__':
         new_grid = iterate(new_grid, 1)
         options.append(score(new_grid))
 
-    puz.answer_b = options[(1000000000 - minutes - 1) % len(options)]
+    puz.answer_b = int(options[(1000000000 - minutes - 1) % len(options)])
     print(f'Part 2: {puz.answer_b}')

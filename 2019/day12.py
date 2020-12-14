@@ -135,7 +135,7 @@ if __name__ == '__main__':
     puz = Puzzle(2019, 12)
     moons = list(parse(puz.input_data.split('\n')))
     run(moons, 1000)
-    puz.answer_a = sum(m.total_energy for m in moons)
+    puz.answer_a = int(sum(m.total_energy for m in moons))
     print(f'Part 1: {puz.answer_a}')
 
     moons = list(parse(puz.input_data.split('\n')))

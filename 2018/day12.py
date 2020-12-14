@@ -77,5 +77,11 @@ if __name__ == '__main__':
     print(f'Part 1: {puz.answer_a}')
 
     pre, line = follow_rules(init, rules, 1000)
-    puz.answer_b = score(line, pre)
+    score_1000 = score(line, pre)
+
+    pre, line = follow_rules(init, rules, 2000)
+    inc = score(line, pre) - score_1000
+
+    v = inc * (50000000000 // 1000 - 1) + score_1000
+    puz.answer_b = v
     print(f'Part 2: {puz.answer_b}')

@@ -50,7 +50,7 @@ if __name__ == '__main__':
     puz = Puzzle(2018, 23)
     x, y, z, r = parse(puz.input_data.split('\n'))
     mask = within_max(x, y, z, r)
-    puz.answer_a = mask.sum()
+    puz.answer_a = int(mask.sum())
     print(f'Part 1: {puz.answer_a}')
 
     x0 = (23837205, 58141311, 11772354)

@@ -13,7 +13,7 @@ assert total_fuel(14) == 2
 assert total_fuel(1969) == 966
 assert total_fuel(100756) == 50346
 
-vals = map(int, puz.input_data.split('\n'))
+vals = list(map(int, puz.input_data.split('\n')))
 
 total = sum(i // 3 - 2 for i in vals)
 puz.answer_a = total

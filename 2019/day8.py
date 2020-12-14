@@ -19,7 +19,7 @@ if __name__ == '__main__':
     puz = Puzzle(2019, 8)
 
     min_layer = min(iter_layers(puz.input_data, layer_shape), key=lambda i: (i == 0).sum())
-    puz.answer_a = (min_layer == 2).sum() * (min_layer == 1).sum()
+    puz.answer_a = int((min_layer == 2).sum() * (min_layer == 1).sum())
     print(f'Part 1: {puz.answer_a}')
 
     image = np.full(layer_shape, TRANSPARENT, dtype=np.int)

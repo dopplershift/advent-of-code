@@ -11,7 +11,9 @@ class NAT:
         self.output = []
     
     def run(self, _):
-        if not any(c.input_data for c in self.network.values() if c is not self):
+        if not any(c.input_data or c.output for c in self.network.values() if c is not self):
+            if not self.input_data:
+                return
             self.output = [0, *self.input_data]
 
             if self.need_first:
@@ -36,12 +38,13 @@ def run_network(source):
 
     comps = itertools.cycle(network.values())
     while comp:=next(comps):
-        if comp.run([-1]):
+        inp = [-1] if not comp.input_data else None
+        if comp.run(inp):
             break
         while comp.output:
-            y = comp.output.pop()
-            x = comp.output.pop()
-            addr = comp.output.pop()
+            addr = comp.output.pop(0)
+            x = comp.output.pop(0)
+            y = comp.output.pop(0)
             network[addr].send_input((x, y))
 
     return network[255]
@@ -52,7 +55,7 @@ if __name__ == '__main__':
     
     puz = Puzzle(2019, 23)
     nat = run_network(puz.input_data.strip())
-    
+
     puz.answer_a = nat.part1
     print(f'Part 1: {puz.answer_a}')
 

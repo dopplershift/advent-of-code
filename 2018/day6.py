@@ -45,8 +45,8 @@ if __name__ == '__main__':
     puz = Puzzle(2018, 6)
     locs = [tuple(map(int, l.split(','))) for l in puz.input_data.split('\n')]
 
-    puz.answer_a = coverage(locs)
+    puz.answer_a = int(coverage(locs))
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = region_max_total_dist(locs)
+    puz.answer_b = int(region_max_total_dist(locs))
     print(f'Part 2: {puz.answer_b}')

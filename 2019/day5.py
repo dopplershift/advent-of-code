@@ -56,7 +56,7 @@ if __name__ == '__main__':
     puz = Puzzle(2019, 5)
     c = Computer.fromstring(puz.input_data)
     c.run([1])
-    puz.answer_a = c.output
+    puz.answer_a = c.output[-1]
     print(f'Part 1: {puz.answer_a}')
 
     c = Computer.fromstring(puz.input_data)

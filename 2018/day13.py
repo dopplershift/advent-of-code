@@ -121,10 +121,11 @@ if __name__ == '__main__':
     assert crash_all(network, carts) == (6, 4)
 
     puz = Puzzle(2018, 13)
-    network, carts = parse(puz.input_data)
 
-    puz.answer_a = run(network, carts)
+    network, carts = parse(puz.input_data)
+    puz.answer_a = ','.join(str(i) for i in run(network, carts))
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = crash_all(network, carts)
+    network, carts = parse(puz.input_data)
+    puz.answer_b = ','.join(str(i) for i in crash_all(network, carts))
     print(f'Part 2: {puz.answer_b}')

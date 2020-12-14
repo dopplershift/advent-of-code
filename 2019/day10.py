@@ -153,10 +153,11 @@ if __name__ == '__main__':
     puz = Puzzle(2019, 10)
     a = read_asteroids(puz.input_data.split('\n'))
     best, loc = find_max_options(a)
+
     puz.answer_a = best
     print(f'Part 1: {puz.answer_a}')
 
     # 199 -> 200th asteroid
     pt = order_by_angles(a, loc)[:, 199]
-    puz.answer_b = 100 * pt[0] + pt[1]
+    puz.answer_b = int(100 * pt[0] + pt[1])
     print(f'Part 2: {puz.answer_b}')
