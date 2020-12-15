@@ -3,20 +3,15 @@ def parse(s):
 
 
 def solve(nums, end=2020):
-    d = dict()
-    for i, n in enumerate(nums):
-        d.setdefault(n, []).append(i)
-    turns = nums.copy()
+    last_spoken = {n:i for i, n in enumerate(nums)}
 
-    for i in range(len(nums), end):
-        last = turns[-1]
-        prev = d[last]
-        if len(prev) < 2:
-            turns.append(0)
-        else:
-            turns.append(prev[-1] - prev[-2])
-        d.setdefault(turns[-1], []).append(i)
-    return turns[-1]
+    # Fine so long as we don't repeat in the initial digits
+    next_val = 0
+    for t in range(len(nums), end):
+        cur = next_val
+        next_val = t - last_spoken[cur] if cur in last_spoken else 0
+        last_spoken[cur] = t
+    return cur
 
 
 if __name__ == '__main__':
@@ -24,7 +19,12 @@ if __name__ == '__main__':
 
     t = '''0,3,6'''
     assert solve(parse(t)) == 436
+
+    assert solve([1, 3, 2]) == 1
     assert solve([2, 1, 3]) == 10
+    assert solve([1, 2, 3]) == 27
+    assert solve([2, 3, 1]) == 78
+    assert solve([3, 2, 1]) == 438
     assert solve([3, 1, 2]) == 1836
 
     puz = Puzzle(2020, 15)
