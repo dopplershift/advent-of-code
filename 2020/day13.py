@@ -56,4 +56,4 @@ if __name__ == '__main__':
     print(f'Part 1: {puz.answer_a}')
 
     puz.answer_b = find_time(ids)
-    print(f'Part 1: {puz.answer_b}')
+    print(f'Part 2: {puz.answer_b}')
