@@ -12,8 +12,8 @@ def assemble(code):
 def run(code, **init_regs):
     insts = list(assemble(code))
     regs = {r:init_regs.get(r, 0) for r in 'abcd'}
-    ptr = 0
-    while ptr < len(insts):
+    ptr = -len(insts)
+    while ptr:
         op, t1, t2 = insts[ptr]
         if op == 'inc':
             regs[t1] += 1
