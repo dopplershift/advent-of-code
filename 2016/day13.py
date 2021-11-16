@@ -11,6 +11,8 @@ class Node:
 
 
 def is_wall(x, y, bias):
+    if x < 0 or y < 0:
+        return True
     val = x*x + 3*x + 2*x*y + y + y*y + bias
     bit_count = 0
     while val:
@@ -20,46 +22,51 @@ def is_wall(x, y, bias):
 
 
 def shortest_path(x, y, val):
+    """Shortest path using A*."""
     goal = Point(x, y)
     start = Point(1, 1)
     frontier = [Node(0, start)]
     min_dist = {start: 0}
-    came_from = {}
+    # came_from = {}
     while frontier:
         current = heapq.heappop(frontier).point
         if current == goal:
             break
         for pt in current.neighbors:
-            if pt.x < 0 or pt.y < 0 or is_wall(*pt, val):
+            if is_wall(*pt, val):
                 continue
             if (dist := min_dist.get(current, 0) + 1) < min_dist.get(pt, 2**32):
-                came_from[pt] = current
+                # came_from[pt] = current
                 min_dist[pt] = dist
                 heapq.heappush(frontier, Node(dist + pt.manhattan_distance(goal), pt))
     else:
         raise RuntimeError('Failed to get to destination!')
 
-    step_count = 0
-    while current in came_from:
-        step_count += 1
-        current = came_from[current]
-    return step_count
+    # step_count = 0
+    # while current in came_from:
+    #     step_count += 1
+    #     current = came_from[current]
+    # return step_count
+
+    return min_dist[goal]
 
 
 def total_visited(x, y, val):
+    """Flood fill with A*-style distance tracking."""
     start = Point(1, 1)
     frontier = deque([start])
     min_dist = {start: 0}
     while frontier:
         current = frontier.pop()
         for pt in current.neighbors:
-            if pt.x < 0 or pt.y < 0 or is_wall(*pt, val):
+            if is_wall(*pt, val):
                 continue
             if (dist := min_dist.get(current, 0) + 1) <= min(min_dist.get(pt, 2**32), 50):
                 min_dist[pt] = dist
                 frontier.appendleft(pt)
 
     return len(min_dist)
+
 
 if __name__ == '__main__':
     from aocd.models import Puzzle
