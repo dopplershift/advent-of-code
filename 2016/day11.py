@@ -45,7 +45,8 @@ def get_grab_options(all_items):
 def get_move_options(items, grabbed, cap):
     loc = items[-1]
     new_items = list(items)
-    if loc > 0:
+    # Don't move a pair of items downwards
+    if loc > 0 and len(grabbed) < 2:
         down = loc - 1
         new_items[grabbed[0]] = down
         new_items[grabbed[-1]] = down
