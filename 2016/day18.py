@@ -1,3 +1,6 @@
+from itertools import chain
+
+
 def parse(s):
     return tuple(c == '^' for c in s)
 
@@ -11,18 +14,10 @@ trap_map = {(True, True, True): False,
             (False, False, True): True,
             (False, False, False): False}
 
-def get_trap(row, ind):
-    if ind == 0:
-        relevant = (False, *row[:2])
-    elif ind == len(row) - 1:
-        relevant = (*row[-2:], False)
-    else:
-        relevant = row[ind - 1: ind + 2]
-    return trap_map[relevant]
-
-
 def next_row(row):
-    return tuple(get_trap(row, i) for i in range(len(row)))
+    return tuple(trap_map[i] for i in zip(chain([False], row[:-1]),
+                                          row,
+                                          chain(row[1:], [False])))
 
 
 def count(row, n):
@@ -36,8 +31,6 @@ def count(row, n):
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
-    assert get_trap((False, False, True, True, False), 1)
-    assert not get_trap((False, False, True, True, False), 0)
     assert next_row((False, False, True, True, False)) == (False, True, True, True, True)
     assert next_row((False, True, True, True, True)) == (True, True, False, False, True)
     assert count(parse('.^^.^.^^^^'), 10) == 38
