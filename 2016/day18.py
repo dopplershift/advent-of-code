@@ -5,19 +5,9 @@ def parse(s):
     return tuple(c == '^' for c in s)
 
 
-trap_map = {(True, True, True): False,
-            (True, True, False): True,
-            (True, False, True): False,
-            (True, False, False): True,
-            (False, True, True): True,
-            (False, True, False): False,
-            (False, False, True): True,
-            (False, False, False): False}
-
 def next_row(row):
-    return tuple(trap_map[i] for i in zip(chain([False], row[:-1]),
-                                          row,
-                                          chain(row[1:], [False])))
+    return tuple(a != b for a,b in zip(chain([False], row),
+                                       chain(row[1:], [False])))
 
 
 def count(row, n):
