@@ -2,11 +2,23 @@ def parse(s):
     return tuple(c == '^' for c in s)
 
 
+trap_map = {(True, True, True): False,
+            (True, True, False): True,
+            (True, False, True): False,
+            (True, False, False): True,
+            (False, True, True): True,
+            (False, True, False): False,
+            (False, False, True): True,
+            (False, False, False): False}
+
 def get_trap(row, ind):
-    start = max(ind - 1, 0)
-    relevant = row[start: ind + 2]
-    return ((sum(relevant) == 1 and not row[ind]) or
-            (sum(relevant) == 2 and row[ind]))
+    if ind == 0:
+        relevant = (False, *row[:2])
+    elif ind == len(row) - 1:
+        relevant = (*row[-2:], False)
+    else:
+        relevant = row[ind - 1: ind + 2]
+    return trap_map[relevant]
 
 
 def next_row(row):
