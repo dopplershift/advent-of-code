@@ -26,7 +26,7 @@ def strategy1(log):
     max_total = 0
     max_minute = 0
     for guard, times in log.items():
-        sleeping = np.zeros((60,), dtype=np.int)
+        sleeping = np.zeros((60,), dtype=int)
         for start, end in times:
             sleeping[start:end] += 1
         total = sleeping.sum()
@@ -38,10 +38,10 @@ def strategy1(log):
 
 
 def strategy2(log):
-    guards = np.zeros((60,), dtype=np.int)
-    total_sleep = np.zeros((60,), dtype=np.int)
+    guards = np.zeros((60,), dtype=int)
+    total_sleep = np.zeros((60,), dtype=int)
     for guard, times in log.items():
-        sleeping = np.zeros((60,), dtype=np.int)
+        sleeping = np.zeros((60,), dtype=int)
         for start, end in times:
             sleeping[start:end] += 1
         more_asleep = sleeping > total_sleep

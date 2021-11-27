@@ -2,7 +2,7 @@ import numpy as np
 
 
 def coverage(locs):
-    nearest = np.zeros((1000, 1000), dtype=np.int)
+    nearest = np.zeros((1000, 1000), dtype=int)
     best_dist = np.full_like(nearest, np.inf, dtype=np.float64)
     ygrid = np.arange(nearest.shape[0])[:, None]
     xgrid = np.arange(nearest.shape[1])
@@ -25,7 +25,7 @@ def coverage(locs):
 
 def region_max_total_dist(locs, thresh=10000):
     size = 1000
-    total_dist = np.zeros((size, size), dtype=np.int)
+    total_dist = np.zeros((size, size), dtype=int)
     ygrid = np.arange(total_dist.shape[0])[:, None]
     xgrid = np.arange(total_dist.shape[1])
     for ind, (x, y) in enumerate(locs):

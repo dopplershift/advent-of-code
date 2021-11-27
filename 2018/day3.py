@@ -24,7 +24,7 @@ def find_overlap_area(claims, size=1000):
 
 
 def find_nonoverlap(claims, size=1000):
-    cloth = np.zeros((size, size), dtype=np.int)
+    cloth = np.zeros((size, size), dtype=int)
     candidates = set()
     for claim in claims:
         area = cloth[claim.left:claim.left + claim.width, claim.top:claim.top + claim.height]
