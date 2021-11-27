@@ -45,15 +45,15 @@ if __name__ == '__main__':
     from aocd.models import Puzzle
 
     t = '''L.LL.LL.LL
-    LLLLLLL.LL
-    L.L.L..L..
-    LLLL.LL.LL
-    L.LL.LL.LL
-    L.LLLLL.LL
-    ..L.L.....
-    LLLLLLLLLL
-    L.LLLLLL.L
-    L.LLLLL.LL'''
+LLLLLLL.LL
+L.L.L..L..
+LLLL.LL.LL
+L.LL.LL.LL
+L.LLLLL.LL
+..L.L.....
+LLLLLLLLLL
+L.LLLLLL.L
+L.LLLLL.LL'''
 
     final = solve(parse(t))
     assert sum(i == 2 for row in final for i in row) == 37
@@ -62,14 +62,14 @@ if __name__ == '__main__':
     assert sum(i == 2 for row in final2 for i in row) == 26
 
     n = neighbors2(parse('''.......#.
-    ...#.....
-    .#.......
-    .........
-    ..#L....#
-    ....#....
-    .........
-    #........
-    ...#.....'''), 4, 3)
+...#.....
+.#.......
+.........
+..#L....#
+....#....
+.........
+#........
+...#.....'''), 4, 3)
     assert list(n) == [(2, 1), (1, 3), (0, 7), (4, 2), (4, 8), (7, 0), (8, 3), (5, 4)]
 
     puz = Puzzle(2020, 11)

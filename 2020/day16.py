@@ -51,7 +51,7 @@ def decode_ticket(fields, ticket, nearby):
 
     return {key: ticket[posmap[key]] for key in fields}
 
-if __name __ == '__main__':
+if __name__ == '__main__':
     import math
     from aocd.models import Puzzle
 

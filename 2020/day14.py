@@ -54,15 +54,15 @@ if __name__ == '__main__':
     from aocd.models import Puzzle
 
     t = '''mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
-    mem[8] = 11
-    mem[7] = 101
-    mem[8] = 0'''
+mem[8] = 11
+mem[7] = 101
+mem[8] = 0'''
     assert sum(part1(t).values()) == 165
 
     t = '''mask = 000000000000000000000000000000X1001X
-    mem[42] = 100
-    mask = 00000000000000000000000000000000X0XX
-    mem[26] = 1'''
+mem[42] = 100
+mask = 00000000000000000000000000000000X0XX
+mem[26] = 1'''
     assert sum(part2(t).values()) == 208
 
     puz = Puzzle(2020, 14)
