@@ -22,13 +22,14 @@ if __name__ == '__main__':
     puz.answer_a = int((min_layer == 2).sum() * (min_layer == 1).sum())
     print(f'Part 1: {puz.answer_a}')
 
-    image = np.full(layer_shape, TRANSPARENT, dtype=np.int)
+    image = np.full(layer_shape, TRANSPARENT, dtype=int)
     for layer in iter_layers(puz.input_data, layer_shape):
         mask = image == TRANSPARENT
         image[mask] = layer[mask]
 
     render = '\n'.join(''.join('#' if item == WHITE else ' ' for item in row) for row in image)
-    print('Part 2:', render, sep='\n')
+    print(render, sep='\n')
     
     # Found by looking at render above
     puz.answer_b = 'KAUZA'
+    print(f'Part 2: {puz.answer_b}')

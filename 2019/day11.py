@@ -40,5 +40,6 @@ if __name__ == '__main__':
     print(f'Part 1: {puz.answer_a}')
 
     img = to_image(paint(codes, start=1))
-    print('Part 2:', img, sep='\n')
+    print(img, sep='\n')
     puz.answer_b = 'LEPCPLGZ'
+    print(f'Part 2: {puz.answer_b}')
