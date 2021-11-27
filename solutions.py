@@ -16,5 +16,8 @@ def run_solution(year, day, data):
     sol_path = Path(__file__).parent / f'{year}'
     with contextlib.redirect_stdout(output), update_sys_path(str(sol_path)):
         exec(open(sol_path / f'day{day}.py', 'rt').read(), {'__name__': '__main__'})
-    return tuple(res[0] for line in output.getvalue().splitlines()
-                 if (res := re.findall(r'Part \d:\s?(.*)', line)))
+    ret = tuple(res[0] for line in output.getvalue().splitlines()
+                if (res := re.findall(r'Part \d:\s?(.*)', line)))
+    if day == 25:
+        ret = ret + ('',)
+    return ret
