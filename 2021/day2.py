@@ -1,21 +1,19 @@
 def solve(s):
     x = 0
-    depth = 0
     aim = 0
-    depth2 = 0
+    depth = 0
     for line in s.split('\n'):
         cmd, d = line.split(' ')
         d = int(d)
-        if cmd == 'forward':
-            x += d
-            depth2 += aim * d
-        elif cmd == 'down':
-            depth += d
-            aim += d
-        elif cmd == 'up':
-            depth -= d
-            aim -= d
-    return x * depth, x * depth2
+        match cmd:
+            case 'forward':
+                x += d
+                depth += aim * d
+            case 'down':
+                aim += d
+            case 'up':
+                aim -= d
+    return x * aim, x * depth
 
 
 if __name__ == '__main__':
