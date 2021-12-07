@@ -6,17 +6,24 @@ def parse(s):
 
 
 def age(population, n=80):
+    # Only need to count how many fish we have spawning on each day, and grow
+    # the population as appropriate.
     grouped = [0] * 7
-    new = [0] * 7
+    ready = aging = 0
     for member in population:
         grouped[member] += 1
 
     for day in range(n):
-        new[(day + 2) % 7] = grouped[day % 7]
-        grouped[day % 7] += new[day % 7]
-        new[day % 7] = 0
+        new = grouped[day % 7]
+        grouped[day % 7] += ready
+
+        # These two variables account being shifted into each other and eventually
+        # included accounts for the two day + one propgation cycle delay before having
+        # offspring.
+        ready = aging
+        aging = new
     
-    return sum(grouped) + sum(new)
+    return sum(grouped) + ready + aging
 
 
 if __name__ == '__main__':
