@@ -1,4 +1,5 @@
 from ast import literal_eval
+from collections import defaultdict
 
 
 def parse(s):
@@ -7,29 +8,21 @@ def parse(s):
 
 
 def make_grid(segs, diag=False):
-    grid = dict()
+    grid = defaultdict(lambda: 0)
 
-    for start, end in segs:
-        if start[-1] == end[-1]:
-            left = min(start[0], end[0])
-            right = max(start[0], end[0])
-            for i in range(left, right + 1):
-                pt = (i, start[-1])
-                grid[pt] = grid.get(pt, 0) + 1
-        elif start[0] == end[0]:
-            top = min(start[-1], end[-1])
-            bottom = max(start[-1], end[-1])
-            for i in range(top, bottom + 1):
-                pt = (start[0], i)
-                grid[pt] = grid.get(pt, 0) + 1
+    for (start_x, start_y), (end_x, end_y) in segs:
+        xinc = 1 if start_x < end_x else -1
+        yinc = 1 if start_y < end_y else -1
+        if start_y == end_y:
+            for i in range(start_x, end_x + xinc, xinc):
+                grid[i, start_y] += 1
+        elif start_x == end_x:
+            for i in range(start_y, end_y + yinc, yinc):
+                grid[start_x, i] += 1
         elif diag:
-            left = min(start, end)
-            right = max(start, end)
-            yinc = 1 if left[-1] < right[-1] else -1
-            for x, y in zip(range(left[0], right[0] + 1),
-                            range(left[-1], right[-1] + yinc, yinc)):
-                pt = (x, y)
-                grid[pt] = grid.get(pt, 0) + 1
+            for x, y in zip(range(start_x, end_x + xinc, xinc),
+                            range(start_y, end_y + yinc, yinc)):
+                grid[x, y] += 1
     return grid
 
 
@@ -58,8 +51,8 @@ if __name__ == '__main__':
     puz = Puzzle(2021, 5)
     segs = parse(puz.input_data)
 
-    puz.answer_a = sum(v > 1 for v in make_grid(segs).values())
+    puz.answer_a = count(make_grid(segs))
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = sum(v > 1 for v in make_grid(segs, diag=True).values())
+    puz.answer_b = count(make_grid(segs, diag=True))
     print(f'Part 2: {puz.answer_b}')
