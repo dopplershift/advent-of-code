@@ -17,7 +17,7 @@ def collapse(s):
             else:
                 new_s.append(s[pointer])
 
-            # Move to the next check location    
+            # Move to the next check location
             pointer += 1
 
         # Add the last item if we didn't blow it away

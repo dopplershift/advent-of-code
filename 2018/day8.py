@@ -11,7 +11,7 @@ def handle_tree(vals):
     for _ in range(num_metadata):
         total += next(vals)
     return total
-    
+
 
 def handle_tree2(vals):
     num_children = next(vals)
@@ -22,7 +22,7 @@ def handle_tree2(vals):
         return sum(metadata)
     else:
         return sum(children[i - 1] for i in metadata if 1<=i<=len(children))
-    
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 

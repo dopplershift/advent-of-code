@@ -30,7 +30,7 @@ class Creator:
                 self.inventory[ingred] -= mult * num
 
         self.inventory[item] += mult * prod_count
-        
+
         return ore_count
 
     def max_for_ore(self, item, limit=1000000000000):
@@ -49,7 +49,7 @@ class Creator:
             guess = (lower + upper) // 2
         return lower
 
-    
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 

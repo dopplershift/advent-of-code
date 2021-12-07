@@ -41,7 +41,7 @@ def aba_to_bab(s):
 def supports_ssl(ip):
     blocks, hypernets = parse_ip(ip)
     babs = set(bab for b in hypernets for bab in find_abas(b))
-    
+
     return any(aba_to_bab(aba) in babs
                for b in blocks for aba in find_abas(b))
 

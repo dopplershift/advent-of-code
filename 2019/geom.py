@@ -11,11 +11,11 @@ class Point:
     @property
     def up(self):
         return Point(self.x, self.y + 1)
-    
+
     @property
     def down(self):
         return Point(self.x, self.y - 1)
-    
+
     @property
     def right(self):
         return Point(self.x + 1, self.y)
@@ -23,7 +23,7 @@ class Point:
     @property
     def left(self):
         return Point(self.x - 1, self.y)
-    
+
     @property
     def neighbors(self):
         yield self.up
@@ -37,19 +37,19 @@ class Point:
 
     def __add__(self, other):
         return Point(self.x + other.x, self.y + other.y)
-    
+
     def __sub__(self, other):
         return Point(self.x - other.x, self.y - other.y)
-    
+
     def __iter__(self):
         return iter((self.x, self.y))
-    
+
     def __hash__(self):
         return hash((self.x, self.y))
-    
+
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
-    
+
     def __lt__(self, other):
         return (self.x, self.y) < (other.x, other.y)
 
@@ -62,7 +62,7 @@ class Vector:
     @staticmethod
     def i():
         return Vector(1, 0, 0)
-    
+
     @staticmethod
     def j():
         return Vector(0, 1, 0)
@@ -71,13 +71,13 @@ class Vector:
     def k():
         return Vector(0, 0, 1)
 
-    
+
     def __matmul__(self, other):
         return self.x * other.x + self.y * other.y + self.z + other.z
-    
+
     def dot(self, other):
         return self @ other
-    
+
     def cross(self, other):
         return Vector(self.y * other.z - self.z * other.y,
                       self.z * other.x - self.x * other.z,

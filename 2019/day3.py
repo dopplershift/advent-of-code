@@ -11,7 +11,7 @@ def find_intersections(wire1, wire2):
             if pt is not None and pt != (0, 0):
                 yield pt
 
-                
+
 def intersects(seg1, seg2):
     direc1, fixed1, b0_1, b1_1, dist1 = seg1
     direc2, fixed2, b0_2, b1_2, dist2 = seg2

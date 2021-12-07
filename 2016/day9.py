@@ -11,7 +11,7 @@ class Tree:
     def _add_string(self, s):
         if s:
             self._parts.append((s, 1))
-        
+
     def _parse(self, s):
         ind = 0
         while ind < len(s):
@@ -25,7 +25,7 @@ class Tree:
                 l, rep = map(int, s[loc + 1:end].split('x'))
                 ind = end + 1 + l
                 self._add_node(s[end + 1:ind], rep)
-    
+
     def __len__(self):
         return sum(rep * len(p) for p, rep in self._parts)
 
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     puz = Puzzle(2016, 9)
 
     contents = puz.input_data.replace('\n', '')
-    
+
     puz.answer_a = calc_len(contents)
     print('Part 1:', puz.answer_a)
 

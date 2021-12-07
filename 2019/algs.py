@@ -14,13 +14,13 @@ def gcd(x, y):
 
 
 class BreadthFirstSearch:
-    
+
     def __init__(self, start, extra=()):
         self._frontier = deque([])
         self._seen = set()
         self._cur_node = None
         self.add(start, extra)
-    
+
     def __iter__(self):
         while self._frontier:
             self._cur_node = self._frontier.pop()

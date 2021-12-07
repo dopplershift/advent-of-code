@@ -6,7 +6,7 @@ def mul(memory, r1, r2, r3):
 
 def halt(*a):
     raise StopIteration
-    
+
 dispatch = {1: add, 2:mul, 99: halt}
 def run(program_memory):
     i_ptr = 0

@@ -15,7 +15,7 @@ TRANSPARENT = 2
 
 if __name__ == '__main__':
     from aocd.models import Puzzle
-    
+
     puz = Puzzle(2019, 8)
 
     min_layer = min(iter_layers(puz.input_data, layer_shape), key=lambda i: (i == 0).sum())
@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
     render = '\n'.join(''.join('#' if item == WHITE else ' ' for item in row) for row in image)
     print(render, sep='\n')
-    
+
     # Found by looking at render above
     puz.answer_b = 'KAUZA'
     print(f'Part 2: {puz.answer_b}')

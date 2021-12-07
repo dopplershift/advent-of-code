@@ -11,10 +11,10 @@ def parse(s):
     for line in f.split('\n'):
         name, vals = line.split(': ')
         fields[name] = list(map(make_range, vals.split(' or ')))
-    
+
     t = t.split('\n')[1]
     ticket = tuple(map(int, t.split(',')))
-    
+
     nearby = [tuple(map(int, l.split(','))) for l in n.split('\n')[1:]]
     return fields, ticket, nearby
 
@@ -37,11 +37,11 @@ def find_valid(fields, nearby):
 def decode_ticket(fields, ticket, nearby):
     valid_tickets = list(find_valid(fields, nearby))
     posmap = {}  # Field -> index
-    
+
     todo = deque(range(len(ticket)))
     while todo:
         ind = todo.pop()
-        options = [key for key, ((a1, b1), (a2, b2)) in fields.items() 
+        options = [key for key, ((a1, b1), (a2, b2)) in fields.items()
                    if all((a1 <= t[ind] <= b1 or a2 <= t[ind] <= b2) for t in valid_tickets) and key not in posmap]
 
         if len(options) > 1:

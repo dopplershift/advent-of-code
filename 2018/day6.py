@@ -13,13 +13,13 @@ def coverage(locs):
         better = dist < best_dist
         best_dist[better] = dist[better]
         nearest[better] = ind
-    
+
     candidates = set(range(len(locs)))
     candidates -= set(nearest[:, 0])
     candidates -= set(nearest[:, -1])
     candidates -= set(nearest[0, :])
     candidates -= set(nearest[-1, :])
-    
+
     return max((nearest == c).sum() for c in candidates)
 
 
@@ -31,7 +31,7 @@ def region_max_total_dist(locs, thresh=10000):
     for ind, (x, y) in enumerate(locs):
         dist = np.abs(x - xgrid) + np.abs(y - ygrid)
         total_dist += dist
-        
+
 #    print(total_dist < thresh)
     return (total_dist < thresh).sum()
 

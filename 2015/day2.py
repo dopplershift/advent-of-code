@@ -26,7 +26,7 @@ if __name__ == '__main__':
     from aocd.models import Puzzle
 
     puz = Puzzle(2015, 2)
-    
+
     puz.answer_a = part1(puz.input_data)
     print(f'Part 1: {puz.answer_a}')
 

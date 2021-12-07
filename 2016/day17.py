@@ -23,13 +23,13 @@ def bfs(pw):
             continue
         visited.add(opt)
 
-        x, y, path = opt    
+        x, y, path = opt
         if x == 3 and y == 3:
             break
-        
+
         for opt in get_options(pw, path, x, y):
             frontier.appendleft(opt)
-            
+
     return path
 
 
@@ -49,10 +49,10 @@ def dfs(pw):
             if len(path) > len(longest):
                 longest = path
             continue
-        
+
         for opt in get_options(pw, path, x, y):
             frontier.append(opt)
-            
+
     return longest
 
 

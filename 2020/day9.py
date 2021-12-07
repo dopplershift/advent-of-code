@@ -28,7 +28,7 @@ def find_run_fast(vals, target):
     # Use an iterator over our list of values
     val_iter = iter(vals)
     total = 0
-    
+
     # "Infinite" loop will break with StopIteration from iterator if we
     # don't find the total
     while True:
@@ -38,7 +38,7 @@ def find_run_fast(vals, target):
             next_val = next(val_iter)
             total += next_val
             window.append(next_val)
-        
+
         # While the total is too big, drop numbers from the left side of the window
         # and subtract them from the total
         while total > target:

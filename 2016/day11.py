@@ -14,13 +14,13 @@ def parse(s):
         for item in re.findall(microchip_pattern, line):
             d[item[:2]] = floor
             chips.append(item[:2])
-    
+
     state = [0] * (2 * len(chips))
     for ind, chip in enumerate(chips):
         state[2 * ind] = d[chip]
         state[2 * ind + 1] = d['G' + chip]
     state.append(len(s.split('\n')))
-        
+
     return state
 
 
@@ -76,7 +76,7 @@ def breadth_first_search(start):
             break
         elif canonicalize(items) in seen:
             continue
-        
+
         seen.add(canonicalize(items))
         for taken in get_grab_options(items):
             for new_items in get_move_options(items, taken, top_floor):

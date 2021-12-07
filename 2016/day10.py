@@ -31,7 +31,7 @@ def run(s):
                 items = storage.setdefault(dest, [])
                 if items:
                     full.appendleft(dest)
-                items.append(val)                    
+                items.append(val)
             else:
                 output[dest] = val
 

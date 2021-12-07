@@ -35,7 +35,7 @@ if __name__ == '__main__':
     groups = t.split('\n\n')
     assert count(groups, anyone) == 11
     assert count(groups, everyone) == 6
-    
+
     puz = Puzzle(2020, 6)
     groups = puz.input_data.split('\n\n')
 

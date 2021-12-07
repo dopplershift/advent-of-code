@@ -22,7 +22,7 @@ def print_board(board):
 
 
 def valid_index(layout, point):
-    return point.y >= 0 and point.y < len(layout) and point.x >=0 and point.x < len(layout[0]) 
+    return point.y >= 0 and point.y < len(layout) and point.x >=0 and point.x < len(layout[0])
 
 
 def walk_scaffold(layout, robot):

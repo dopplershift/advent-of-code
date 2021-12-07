@@ -23,7 +23,7 @@ addi 2 1 2              reg2 += 1
 mulr 2 4 2              reg2 *= 21
 addi 2 6 2              reg2 += 6
 addr 5 2 5              reg5 += reg2
-addr 4 0 4    JUMP OVER IF reg0 
+addr 4 0 4    JUMP OVER IF reg0
 seti 0 0 4    JUMP TO 0
 setr 4 5 2              reg2 = 27
 mulr 2 4 2              reg2 *= 28

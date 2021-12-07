@@ -7,7 +7,7 @@ def search_hashes(door_id):
         digest = md5(fmt % i).hexdigest()
         if digest.startswith('00000'):
             yield digest
-    
+
 
 def crack(door_id):
     pw = ''

@@ -36,7 +36,7 @@ def find_location(cp):
             loc += right
         while not cp(loc + right_edge):
             loc += down
-    
+
     return loc
 
 
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     from aocd.models import Puzzle
 
     puz = Puzzle(2019, 19)
-    
+
     cp = CheckPoint(puz.input_data)
     puz.answer_a = scan(cp)
     print(f'Part 1: {puz.answer_a}')

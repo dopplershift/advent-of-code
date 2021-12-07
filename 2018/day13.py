@@ -5,7 +5,7 @@ class Cart:
         self.y = y
         self.dx, self.dy = self.directions[direction]
         self.nextturn = 0
-    
+
     def move(self, network):
         self.x += self.dx
         self.y += self.dy
@@ -32,16 +32,16 @@ class Cart:
 
     def __lt__(self, other):
         return (self.y, self.x) < (other.y, other.x)
-    
+
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
-    
+
     def __hash__(self):
         return hash((self.x, self.y))
-    
+
     def __str__(self):
         return ('X: {0.x:3d} Y: {0.y:3d} dx: {0.dx:2d} dy: {0.dy:2d}'.format(self))
-    
+
     __repr__ = __str__
 
 
@@ -61,7 +61,7 @@ def run(network, carts):
                 return cart.x, cart.y
             done.add(cart)
 
-            
+
 def crash_all(network, carts):
     tick = 0
     done = carts
@@ -99,7 +99,7 @@ def parse(s):
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
-    s = r'''/->-\        
+    s = r'''/->-\
 |   |  /----\
 | /-+--+-\  |
 | | |  | v  |
@@ -110,8 +110,8 @@ if __name__ == '__main__':
     crash = run(network, carts)
     assert crash == (7, 3)
 
-    f2 = r'''/>-<\  
-|   |  
+    f2 = r'''/>-<\
+|   |
 | /<+-\
 | | | v
 \>+</ |

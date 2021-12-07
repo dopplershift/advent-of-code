@@ -43,7 +43,7 @@ def evaluate2(chars):
             stack.append(evaluate2(chars))
         elif char == ')':
             break
-    
+
     for op in (operator.add, operator.mul):
         while stack.count(op):
             op_loc = stack.index(op)

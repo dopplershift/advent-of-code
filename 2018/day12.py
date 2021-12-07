@@ -37,7 +37,7 @@ def follow_rules(init, rules, generations=20):
             appended += 1
             parts.append('#')
         buf = ''.join(parts)
-    #    print(buf)    
+    #    print(buf)
     return prepended, buf
 
 def score(line, prepended):

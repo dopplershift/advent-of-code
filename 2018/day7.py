@@ -62,7 +62,7 @@ def process_queue(graph, deps, num_workers=5, extra=60):
             for item in graph[task]:
                 if not set(deps[item]) - done:
 #                      print('Item available:', item)
-                     avail = sorted(set(avail) | set(item)) 
+                     avail = sorted(set(avail) | set(item))
 
     return total_time
 

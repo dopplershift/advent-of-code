@@ -11,20 +11,20 @@ def parse(f):
         v = int(comps[4:7])
         yield x, y, u, v
 
-        
+
 def cost(t):
     return len(set(x + u * t)) + len(set(y + v * t))
 
 
 if __name__ == '__main__':
     from aocd.models import Puzzle
-    
+
     puz = Puzzle(2018, 10)
     vals = np.array(list(parse(puz.input_data.split('\n'))))
 
     x, y, u, v = vals.T
     min_time = min(range(20000), key=cost)
-    
+
     final_x = x + u * min_time
     final_y = y + v * min_time
 
@@ -39,9 +39,9 @@ if __name__ == '__main__':
     for x,y in zip(final_x, final_y):
         board[y - min_y][x - min_x] = '#'
     print('\n'.join(''.join(row)for row in board))
-    
+
     puz.answer_a = 'LCPGPXGL'
     print(f'Part 1: {puz.answer_a}')
-    
+
     puz.answer_b = min_time
     print(f'Part 2: {puz.answer_b}')

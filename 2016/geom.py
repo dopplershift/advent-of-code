@@ -9,7 +9,7 @@ class Point:
     @property
     def up(self):
         return Point(self.x, self.y + 1)
-    
+
     @property
     def down(self):
         return Point(self.x, self.y - 1)
@@ -46,7 +46,7 @@ class Point:
 
     def __iter__(self):
         return iter((self.x, self.y))
-    
+
     def __hash__(self):
         return hash((self.x, self.y))
 

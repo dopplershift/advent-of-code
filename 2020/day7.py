@@ -37,18 +37,18 @@ def check_bag(bag, options):
 # Would have been simpler to just assemble a graph of child -> parents from the input
 def search(bags, target):
     frontier = [[b] for b in bags]
-    reaches = set() 
+    reaches = set()
     seen = set()
     while frontier:
         path = frontier.pop()
         last_bag = path[-1]
-        
+
         if last_bag in reaches or target in last_bag == target:
             reaches |= set(path)
 
         if last_bag in seen or last_bag not in bags:
             continue
-        
+
         seen |= {last_bag}
         for item in bags[last_bag]:
             frontier.append(path + [item.color])

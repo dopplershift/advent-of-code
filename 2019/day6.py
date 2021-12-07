@@ -12,7 +12,7 @@ def count_orbits(orbits, body):
         total += 1
         body = parent
     return total
-    
+
 
 def count_total_orbits(orbits):
     total = 0
@@ -26,12 +26,12 @@ def find_path(orbits):
     path = ['SAN']
     while path[-1] in orbits:
         path.append(orbits[path[-1]])
-    
+
     # Now find our path to root until we hit something in the first path
     our_path = ['YOU']
     while our_path[-1] in orbits and our_path[-1] not in path:
         our_path.append(orbits[our_path[-1]])
-    
+
     # Find index of intersection in first path for slicing
     ind = path.index(our_path[-1])
 

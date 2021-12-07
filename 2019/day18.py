@@ -17,7 +17,7 @@ class Maze:
                 break
         else:
             raise RuntimeError(f'{item} not found!')
-        return (col, row) 
+        return (col, row)
 
     def set_multi_board(self):
         # Update board with new start:
@@ -73,7 +73,7 @@ class Maze:
             dist, loc, keys = heapq.heappop(frontier)
             if keys == self.all_keys:
                 break
-            
+
             if (loc, keys) in seen:
                 continue
             else:
@@ -95,13 +95,13 @@ class Maze:
             dist, rpos, keys = heapq.heappop(frontier)
             if keys == self.all_keys:
                 break
-            
+
             for i, loc in enumerate(rpos):
                 if (loc, keys) in seen[i]:
                     continue
                 else:
                     seen[i].add((loc, keys))
-                
+
                 for d, loc, key in self.reachable_keys(loc, keys):
                     new_rpos = rpos[:i] + (loc,) + rpos[i + 1:]
                     heapq.heappush(frontier, (dist + d, new_rpos, keys | {key}))

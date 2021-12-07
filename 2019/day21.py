@@ -2,7 +2,7 @@ from intcode import Computer
 
 if __name__ == '__main__':
     from aocd.models import Puzzle
-    
+
     puz = Puzzle(2019, 21)
 
     # Hand-solved script for part 1

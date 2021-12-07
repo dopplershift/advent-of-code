@@ -67,7 +67,7 @@ def find_layout(c, start):
     END = 2
 
     move = NORTH
-    loc = start 
+    loc = start
     direc = 0
 
     # Empirically determined size
@@ -120,7 +120,7 @@ if __name__ == '__main__':
     # arbitrary starting point really, just denotes a location in the grid
     start = Point(22, 20)
     layout, goal = find_layout(c, start)
-    
+
     path = astar(start, goal, layout)
     puz.answer_a = path.cost
     print(f'Part 1: {puz.answer_a}')

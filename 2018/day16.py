@@ -89,13 +89,13 @@ class Computer:
             for func in self._code_map.values():
                 if func in func_options:
                     func_options.pop(func)
-    
+
         self.regs = [0, 0, 0, 0]
-    
+
     def __call__(self, opcode, a, b, c):
         self._code_map[opcode](a, b, c)
 
-        
+
 def count_works(command, before, after):
     c = Computer()
     works = 0

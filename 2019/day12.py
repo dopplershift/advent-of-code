@@ -52,17 +52,17 @@ class Moon:
     def __copy__(self):
         return type(self)(*self.pos, np.array(self.vel))
 
-    
+
 def parse(fobj):
     for line in fobj:
         yield Moon.fromstring(line)
 
-        
+
 def run(moons, n):
     for i in range(n):
         _step(moons)
 
-        
+
 def run_to_repeat(moons):
     orig_moons = copy.deepcopy(moons)
     steps = [0] * 3

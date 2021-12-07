@@ -8,7 +8,7 @@ def neighbors1(board, r, c):
         if 0 <= y <= len(board) - 1 and 0 <= x <= len(board[y]) - 1:
             yield y, x
 
-            
+
 def solve(board, neighbors=neighbors1, occupied_limit=4):
     changed = True
     while changed:

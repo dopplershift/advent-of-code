@@ -6,7 +6,7 @@ from geom import Point
 
 class Maze:
     PATH = '.'
-        
+
     def __init__(self, src):
         self.maze = src.split('\n')
 
@@ -64,7 +64,7 @@ class Maze:
 
 class DonutMaze(Maze):
     PATH = '.'
-        
+
     def __init__(self, src):
         self.maze = src.split('\n')
         labels = self._get_labels()
@@ -103,7 +103,7 @@ class DonutMaze(Maze):
 
 if __name__ == '__main__':
     from aocd.models import Puzzle
-    
+
     puz = Puzzle(2019, 20)
 
     m = Maze(puz.input_data)

@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     puz = Puzzle(2018, 1)
     nums = [int(i) for i in puz.input_data.split('\n')]
-    
+
     puz.answer_a = total(nums)
     print(f'Part 1: {puz.answer_a}')
 

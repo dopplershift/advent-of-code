@@ -20,7 +20,7 @@ def fft(digits):
     half = len(digits) // 2
     for i in range(1, half + 1):
         repeat = itertools.cycle(itertools.chain(itertools.repeat(0, i),
-                                                 itertools.repeat(1, i), 
+                                                 itertools.repeat(1, i),
                                                  itertools.repeat(0, i),
                                                  itertools.repeat(-1, i)))
         next(repeat)

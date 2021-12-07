@@ -7,7 +7,7 @@ def shortest_path(grid):
             break
     else:
         raise RuntimeError('Start not found!')
-    
+
     all_nums = set(''.join(grid)) - {'#', '.'}
     visited = set()
     options = deque([(0, (x, y), frozenset({'0'}))])
@@ -38,7 +38,7 @@ def shortest_path_return(grid):
             break
     else:
         raise RuntimeError('Start not found!')
-    
+
     all_nums = set(''.join(grid)) - {'#', '.'}
     visited = set()
     shortest_dist = {}
@@ -69,7 +69,7 @@ def shortest_path_return(grid):
                 options.append((n, new_loc, (nums | {new_spot}) if new_spot in all_nums else nums))
     else:
         raise RuntimeError('No path found!')
-    
+
     return shortest
 
 

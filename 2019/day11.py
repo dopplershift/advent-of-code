@@ -33,7 +33,7 @@ def to_image(panels):
 
 if __name__ == '__main__':
     from aocd.models import Puzzle
-    
+
     puz = Puzzle(2019, 11)
     codes = [int(c) for c in puz.input_data.split(',')]
     puz.answer_a = len(paint(codes))

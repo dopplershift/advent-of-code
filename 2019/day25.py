@@ -91,7 +91,7 @@ def solve(c):
 
 if __name__ == '__main__':
     from aocd.models import Puzzle
-    
+
     puz = Puzzle(2019, 25)
     c = Computer.fromstring(puz.input_data)
     walk(c)

@@ -93,7 +93,7 @@ def run_board_recursive(board, size, minutes):
 
 if __name__ == '__main__':
     from aocd.models import Puzzle
-    
+
     puz = Puzzle(2019, 24)
     board = cycle_board(puz.input_data.split('\n'))
     puz.answer_a = sum(2**i for i, c in enumerate(''.join(board)) if c == '#')

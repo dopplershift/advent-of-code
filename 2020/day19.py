@@ -1,6 +1,6 @@
 def parse(s):
     r, m = s.split('\n\n')
-    
+
     rules = {}
     for line in r.split('\n'):
         num, pat = line.split(': ')

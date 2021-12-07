@@ -31,7 +31,7 @@ def shortest_path(info):
     visited = set()
     while frontier:
         n, data_pos, zero_pos = frontier.pop()
-        
+
         if data_pos == goal_loc:
             return n
 
@@ -39,7 +39,7 @@ def shortest_path(info):
         if key in visited:
             continue
         visited.add(key)
-        
+
         x, y = zero_pos
         n += 1
         for dx, dy in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
@@ -47,7 +47,7 @@ def shortest_path(info):
             if move_pos in info and move_pos not in immovable:
                 frontier.appendleft((n, zero_pos if move_pos == data_pos else data_pos, move_pos))
 
-    raise RuntimeError('Failed to find goal!')    
+    raise RuntimeError('Failed to find goal!')
 
 if __name__ == '__main__':
 

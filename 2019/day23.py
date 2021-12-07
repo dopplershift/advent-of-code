@@ -9,7 +9,7 @@ class NAT:
         self.input_data = None
         self.need_first = True
         self.output = []
-    
+
     def run(self, _):
         if not any(c.input_data or c.output for c in self.network.values() if c is not self):
             if not self.input_data:
@@ -23,7 +23,7 @@ class NAT:
                 self.part2 = self.input_data[-1]
                 return True
             self.last = self.input_data
-    
+
     def send_input(self, v):
         self.input_data = v
 
@@ -52,7 +52,7 @@ def run_network(source):
 
 if __name__ == '__main__':
     from aocd.models import Puzzle
-    
+
     puz = Puzzle(2019, 23)
     nat = run_network(puz.input_data.strip())
 

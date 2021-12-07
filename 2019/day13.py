@@ -20,7 +20,7 @@ def play_game(c):
                 board[x, y] = t
                 if t == 3:
                     paddle_x = x
-                elif t == 4: 
+                elif t == 4:
                     ball_x = x
         # Clear the output back out
         c.output = []
@@ -33,7 +33,7 @@ def play_game(c):
 
 if __name__ == '__main__':
     from aocd.models import Puzzle
-    
+
     puz = Puzzle(2019, 13)
     c = Computer.fromstring(puz.input_data)
     c.run()
@@ -43,4 +43,4 @@ if __name__ == '__main__':
 
     c = Computer.fromstring(puz.input_data)
     puz.answer_b = play_game(c)
-    print(f'Part 2: {puz.answer_b}')    
+    print(f'Part 2: {puz.answer_b}')

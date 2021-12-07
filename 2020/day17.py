@@ -20,7 +20,7 @@ def solve(grid, iters, dims):
     for _ in range(iters):
         # Get a pool of all potential sites, counting how many active cells call them neighbor
         candidates = Counter(itertools.chain.from_iterable(neighborhood(active) for active in grid))
-        
+
         # The next grid is only those cells that meet the right count of neighbors
         grid = {loc for loc, count in candidates.items()
                 if count == 3 or (count == 2 and loc in grid)}

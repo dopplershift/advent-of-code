@@ -7,7 +7,7 @@ def parse(s):
 
 
 def winner(board, nums, n=5):
-    return (any(set(board[i::5]) <= nums for i in range(5)) or 
+    return (any(set(board[i::5]) <= nums for i in range(5)) or
             any(set(board[5*i:5 * i + 5]) <= nums for i in range(5)))
 
 
@@ -33,7 +33,7 @@ def find_loser(boards, all_nums):
                       if not winner(board, set(sofar))]
         if winner(boards[0], set(sofar)):
             break
-    
+
     return score(boards[0], sofar)
 
 if __name__ == '__main__':

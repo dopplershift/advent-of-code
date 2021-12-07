@@ -22,7 +22,7 @@ def age(population, n=80):
         # offspring.
         ready = aging
         aging = new
-    
+
     return sum(grouped) + ready + aging
 
 

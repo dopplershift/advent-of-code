@@ -67,7 +67,7 @@ class Computer:
 
     def divi(self, a, b, c):
         self.regs[c] = self.regs[a] // b
-        
+
     def execute(self, code):
         counter = 0
         while self.ip < len(code):
@@ -77,6 +77,6 @@ class Computer:
             self.ip = self.regs[self.ipreg] + 1
             counter += 1
         return counter
-    
+
     def __call__(self, opcode, a, b, c):
         getattr(self, opcode)(a, b, c)

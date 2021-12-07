@@ -23,7 +23,7 @@ class Computer:
     @classmethod
     def fromstring(cls, s):
         return cls([int(c) for c in s.split(',')])
-    
+
     def reset(self, memory):
         self.memory = defaultdict(lambda: 0, zip(range(len(memory)), memory))
         self.input_data = []
@@ -32,7 +32,7 @@ class Computer:
         self.op_flags = 0
         self.rel_ptr = 0
         self.clear_output()
-        
+
     def __str__(self):
         return f'{self.id}: {self.i_ptr} {self.op_flags} {self.memory[self.i_ptr:self.i_ptr + 8]}'
 
@@ -63,7 +63,7 @@ class Computer:
             return self.rel_ptr + self.memory[addr]
         else:
             print(f'Unknown position mode {f}')
-        
+
     def __getitem__(self, index):
         return self.memory[self.to_addr(index)]
 
@@ -91,10 +91,10 @@ class Computer:
     @property
     def ascii_output(self):
         return ''.join(chr(i) for i in itertools.takewhile(lambda c: c < 256, self.output))
-    
+
     def clear_output(self):
         self.output = []
-        
+
     def display_ascii(self):
         out = self.ascii_output
         print(out)
@@ -110,11 +110,11 @@ class Computer:
     def add(self):
         self[3] = self[1] + self[2]
         self.i_ptr += 4
-    
+
     def mul(self):
         self[3] = self[1] * self[2]
         self.i_ptr += 4
-    
+
     def inp(self):
         # If we get back None, there's no input available, so
         # signal termination
@@ -133,11 +133,11 @@ class Computer:
 
     def jz(self):
         self.i_ptr = self.i_ptr + 3 if self[1] else self[2]
-    
+
     def lt(self):
         self[3] = int(self[1] < self[2])
         self.i_ptr += 4
-    
+
     def eq(self):
         self[3] = int(self[1] == self[2])
         self.i_ptr += 4
@@ -146,7 +146,7 @@ class Computer:
         self.rel_ptr += self[1]
         self.i_ptr += 2
 
-        
+
 if __name__ == '__main__':
     for code, inp, outp in [([109, -1, 4, 1, 99], None, -1),
                             ([109, -1, 104, 1, 99], None, 1),

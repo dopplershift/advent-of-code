@@ -12,7 +12,7 @@ class Group:
     attack_type: str
     weaknesses: List[str] = field(default_factory=list)
     immunities: List[str] = field(default_factory=list)
-    
+
     def __hash__(self):
         return self.initiative
 
@@ -20,7 +20,7 @@ class Group:
     def power(self):
         return self.units * self.attack
 
-    
+
 parser = re.compile(r'(\d+) units each with (\d+) hit points( \([a-z ,;]*\))? with an attack that does (\d+) (\w+) damage at initiative (\d+)')
 
 def parse_special(s):
@@ -103,7 +103,7 @@ def attack(groups, targets):
 #             print(g.initiative, damage(g, target), g.units, target.units, killed)
             target.units -= killed
 
-    
+
 def loop(immune, infection, boost=0):
     for i in immune:
         i.attack += boost
