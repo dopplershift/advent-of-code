@@ -1,6 +1,3 @@
-from collections import deque
-
-
 def parse(s):
     return list(map(int, s.split(',')))
 
