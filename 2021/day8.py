@@ -10,45 +10,48 @@ def part1(entries):
     return sum(len(item) in {2, 3, 4, 7} for unique, digits in entries for item in digits)
 
 
-def identify(unique):
-    # By processing by increasing size, we can identify 1 and 4
-    # along the way, which gives us the cf and bd segments. These
-    # pairs are enough to discern among (2, 3, 5) and (0, 6, 9)
-    transform = {}
-    for item in sorted(unique, key=lambda i: len(i)):
-        letters = set(item)
-        ordered = tuple(sorted(item))
-        if len(item) == 2:
-            transform[ordered] = 1
-            cf = letters
-        elif len(item) == 3:
-            transform[ordered] = 7
-        elif len(item) == 4:
-            transform[ordered] = 4
-            bd = letters - cf
-        elif len(item) == 5:
-            if cf < letters:
-                transform[ordered] = 3
-            elif bd < letters:
-                transform[ordered] = 5
-            else:
-                transform[ordered] = 2
-        elif len(item) == 6:
-            if not (cf < letters):
-                transform[ordered] = 6
-            elif not (bd < letters):
-                transform[ordered] = 0
-            else:
-                transform[ordered] = 9
-        elif len(item) == 7:
-            transform[ordered] = 8
-
-    return transform
-
-
 def decode(unique, digits):
-    mapping = identify(unique)
-    return functools.reduce(lambda x, y: 10 * x + mapping[tuple(sorted(y))], digits, 0)
+    # We really only need to use the full set of patterns to find 1 and 4,
+    # which gives the cf and bd pairs.
+    for item in unique:
+        if len(item) == 2:
+            cf = set(item)
+        elif len(item) == 4:
+            bd = set(item)
+    bd -= cf
+
+    # We can just walk through the digits directly and identify them by length
+    # and which of cf or bd they have.
+    val = 0
+    for s in digits:
+        l = len(s)
+        if l == 2:
+            digit = 1
+        elif l == 3:
+            digit = 7
+        elif l == 4:
+            digit = 4
+        elif l == 5:
+            letters = set(s)
+            if cf < letters:
+                digit = 3
+            elif bd < letters:
+                digit = 5
+            else:
+                digit = 2
+        elif l == 6:
+            letters = set(s)
+            if not cf < letters:
+                digit = 6
+            elif not bd < letters:
+                digit = 0
+            else:
+                digit = 9
+        elif l == 7:
+            digit = 8
+        val = 10 * val + digit
+
+    return val
 
 
 def solve(entries):
