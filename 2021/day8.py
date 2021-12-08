@@ -11,45 +11,35 @@ def part1(entries):
 
 
 def identify(unique):
-    # Using the number of times each segment appears across
-    # each of the ten digits, we can identify segments well
-    # enough to discern the digits
-    counts = Counter(''.join(unique))
-    dg = set()
-    for letter, num in counts.items():
-        if num == 4:
-            e = letter
-        elif num == 6:
-            b = letter
-        elif num == 7:
-            dg.add(letter)
-
-    # Using the number of segments for each digit, combined
-    # with knowing the true identity of a few key segments allows us to create
-    # a mapping of segments (in order) to the correct digit
+    # By processing by increasing size, we can identify 1 and 4
+    # along the way, which gives us the cf and bd segments. These
+    # pairs are enough to discern among (2, 3, 5) and (0, 6, 9)
     transform = {}
-    for item in unique:
+    for item in sorted(unique, key=lambda i: len(i)):
+        letters = set(item)
         ordered = tuple(sorted(item))
         if len(item) == 2:
             transform[ordered] = 1
+            cf = letters
         elif len(item) == 3:
             transform[ordered] = 7
         elif len(item) == 4:
             transform[ordered] = 4
+            bd = letters - cf
         elif len(item) == 5:
-            if b in item:
-                transform[ordered] = 5
-            elif e in item:
-                transform[ordered] = 2
-            else:
+            if cf < letters:
                 transform[ordered] = 3
-        elif len(item) == 6:
-            if e not in item:
-                transform[ordered] = 9
-            elif dg < set(ordered):
-                transform[ordered] = 6
+            elif bd < letters:
+                transform[ordered] = 5
             else:
+                transform[ordered] = 2
+        elif len(item) == 6:
+            if not (cf < letters):
+                transform[ordered] = 6
+            elif not (bd < letters):
                 transform[ordered] = 0
+            else:
+                transform[ordered] = 9
         elif len(item) == 7:
             transform[ordered] = 8
 
