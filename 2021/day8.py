@@ -17,12 +17,11 @@ def find_len(l, n):
 
 
 def identify(unique):
-    # First find which segments represent one and four
-    one = set(find_len(unique, 2))
+    # First find which segments represent four
     four = set(find_len(unique, 4))
 
     # Using the number of times each segment appears across
-    # each of the ten digits, plus 1 and 4, we can uniquely
+    # each of the ten digits, plus the segments making up 4, we can uniquely
     # identify each of the segments
     counts = Counter(''.join(unique))
     segs = [0] * 7
@@ -37,7 +36,7 @@ def identify(unique):
             else:
                 segs[6] = letter
         elif num == 8:
-            if letter in one:
+            if letter in four:
                 segs[2] = letter
             else:
                 segs[0] = letter
