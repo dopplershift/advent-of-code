@@ -10,41 +10,22 @@ def part1(entries):
     return sum(len(item) in {2, 3, 4, 7} for unique, digits in entries for item in digits)
 
 
-def find_len(l, n):
-    for item in l:
-        if len(item) == n:
-            return item
-
-
 def identify(unique):
-    # First find which segments represent four
-    four = set(find_len(unique, 4))
-
     # Using the number of times each segment appears across
-    # each of the ten digits, plus the segments making up 4, we can uniquely
-    # identify each of the segments
+    # each of the ten digits, we can identify segments well
+    # enough to discern the digits
     counts = Counter(''.join(unique))
-    segs = [0] * 7
+    dg = set()
     for letter, num in counts.items():
         if num == 4:
-            segs[4] = letter
+            e = letter
         elif num == 6:
-            segs[1] = letter
+            b = letter
         elif num == 7:
-            if letter in four:
-                segs[3] = letter
-            else:
-                segs[6] = letter
-        elif num == 8:
-            if letter in four:
-                segs[2] = letter
-            else:
-                segs[0] = letter
-        elif num == 9:
-            segs[5] = letter
+            dg.add(letter)
 
     # Using the number of segments for each digit, combined
-    # with knowing what segment is which allows us to create
+    # with knowing the true identity of a few key segments allows us to create
     # a mapping of segments (in order) to the correct digit
     transform = {}
     for item in unique:
@@ -56,19 +37,19 @@ def identify(unique):
         elif len(item) == 4:
             transform[ordered] = 4
         elif len(item) == 5:
-            if segs[1] in item:
+            if b in item:
                 transform[ordered] = 5
-            elif segs[4] in item:
+            elif e in item:
                 transform[ordered] = 2
             else:
                 transform[ordered] = 3
         elif len(item) == 6:
-            if segs[3] not in item:
-                transform[ordered] = 0
-            elif segs[4] in item:
+            if e not in item:
+                transform[ordered] = 9
+            elif dg < set(ordered):
                 transform[ordered] = 6
             else:
-                transform[ordered] = 9
+                transform[ordered] = 0
         elif len(item) == 7:
             transform[ordered] = 8
 
