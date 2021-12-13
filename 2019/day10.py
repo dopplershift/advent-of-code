@@ -2,7 +2,7 @@ from functools import lru_cache
 
 import numpy as np
 
-from algs import gcd
+from aoc_tools import gcd
 
 
 def read_asteroids(lines):

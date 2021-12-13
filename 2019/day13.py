@@ -1,6 +1,6 @@
 import numpy as np
 
-from algs import chunk_iter
+from aoc_tools import chunk_iter
 from intcode import Computer
 
 def play_game(c):

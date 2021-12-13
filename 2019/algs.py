@@ -1,18 +1,6 @@
 from collections import deque
 
 
-def chunk_iter(seq, size):
-    ind = 0
-    while ind < len(seq):
-        yield seq[ind:ind + size]
-        ind += size
-
-def gcd(x, y):
-    while y != 0:
-        x, y = y, x % y
-    return x
-
-
 class BreadthFirstSearch:
 
     def __init__(self, start, extra=()):

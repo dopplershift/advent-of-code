@@ -4,8 +4,23 @@ from pathlib import Path
 import re
 import sys
 
+
+def gcd(x, y):
+    """Calculate the greatest common divisor of two numbers."""
+    while y != 0:
+        x, y = y, x % y
+    return x
+
+
+def chunk_iter(seq, size):
+    '''Iterate over sequence in fixed size chunks.'''
+    for ind in range(0, len(seq), size):
+        yield seq[ind:ind + size]
+
+
 @contextlib.contextmanager
 def update_sys_path(path):
+    """Temporarily add path to sys.path."""
     sys.path.append(path)
     yield sys.path
     sys.path.remove(path)

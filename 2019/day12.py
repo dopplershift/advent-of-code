@@ -3,7 +3,7 @@ import itertools
 
 import numpy as np
 
-from algs import gcd
+from aoc_tools import gcd
 
 class Moon:
     def __init__(self, x, y, z, vel=None):
