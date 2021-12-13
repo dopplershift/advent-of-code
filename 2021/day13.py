@@ -1,6 +1,7 @@
 from ast import literal_eval
 import re
 
+from aoc_tools import ocr
 
 def parse(s):
     dots, folds = s.split('\n\n')
@@ -24,7 +25,7 @@ def display(dots):
     max_x = max(i[0] for i in dots)
     max_y = max(i[-1] for i in dots)
 
-    print('\n'.join(''.join('#' if (x, y) in dots else ' ' for x in range(max_x + 1)) for y in range(max_y + 1)))
+    return '\n'.join(''.join('#' if (x, y) in dots else ' ' for x in range(max_x + 1)) for y in range(max_y + 1))
 
 
 if __name__ == '__main__':
@@ -62,6 +63,5 @@ fold along x=5'''
     puz.answer_a = len(do_folds(dots, folds[:1]))
     print(f'Part 1: {puz.answer_a}')
 
-    display(do_folds(dots, folds))
-    puz.answer_b = 'RGZLBHFP'
+    puz.answer_b = ocr(display(do_folds(dots, folds)))
     print(f'Part 2: {puz.answer_b}')

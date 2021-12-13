@@ -1,3 +1,6 @@
+from aoc_tools import ocr
+
+
 class Screen:
     def __init__(self, rows=6, cols=50):
         self._matrix = [[0] * cols for _ in range(rows)]
@@ -39,9 +42,6 @@ class Screen:
         return '\n'.join(''.join('#' if pixel else '.' for pixel in row)
                          for row in self._matrix)
 
-    def print(self):
-        print(str(self).replace('.', ' '))
-
 
 if __name__ == '__main__':
     from aocd.models import Puzzle
@@ -76,7 +76,5 @@ if __name__ == '__main__':
     puz.answer_a = screen.voltage
     print('Part 1:', puz.answer_a)
 
-    screen.print()
-
-    puz.answer_b = 'RURUCEOEIL'
+    puz.answer_b = ocr(str(screen))
     print('Part 2:', puz.answer_b)

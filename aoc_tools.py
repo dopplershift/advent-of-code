@@ -1,5 +1,7 @@
 import contextlib
+import functools
 import io
+import itertools
 from pathlib import Path
 import re
 import sys
@@ -16,6 +18,87 @@ def chunk_iter(seq, size):
     '''Iterate over sequence in fixed size chunks.'''
     for ind in range(0, len(seq), size):
         yield seq[ind:ind + size]
+
+
+font_samples = ['''
+###  #  # ###  #  #  ##  ####  ##  ####  ### #
+#  # #  # #  # #  # #  # #    #  # #      #  #
+#  # #  # #  # #  # #    ###  #  # ###    #  #
+###  #  # ###  #  # #    #    #  # #      #  #
+# #  #  # # #  #  # #  # #    #  # #      #  #
+#  #  ##  #  #  ##   ##  ####  ##  ####  ### ####
+''']
+decoded = ['RURUCEOEIL']
+
+font_samples.append('''
+#  #  ##  #  # ####  ##
+# #  #  # #  #    # #  #
+##   #  # #  #   #  #  #
+# #  #### #  #  #   ####
+# #  #  # #  # #    #  #
+#  # #  #  ##  #### #  #
+''')
+decoded.append('KAUZA')
+
+font_samples.append('''
+#    #### ###   ##  ###  #     ##  ####
+#    #    #  # #  # #  # #    #  #    #
+#    ###  #  # #    #  # #    #      #
+#    #    ###  #    ###  #    # ##  #
+#    #    #    #  # #    #    #  # #
+#### #### #     ##  #    ####  ### ####
+''')
+decoded.append('LEPCPLGZ')
+
+font_samples.append('''
+###   ##  #### #    ###  #  # #### ###
+#  # #  #    # #    #  # #  # #    #  #
+#  # #      #  #    ###  #### ###  #  #
+###  # ##  #   #    #  # #  # #    ###
+# #  #  # #    #    #  # #  # #    #
+#  #  ### #### #### ###  #  # #    #
+''')
+decoded.append('RGZLBHFP')
+
+font_samples.append('''
+#        ####   #####    ####   #####   #    #   ####   #
+#       #    #  #    #  #    #  #    #  #    #  #    #  #
+#       #       #    #  #       #    #   #  #   #       #
+#       #       #    #  #       #    #   #  #   #       #
+#       #       #####   #       #####     ##    #       #
+#       #       #       #  ###  #         ##    #  ###  #
+#       #       #       #    #  #        #  #   #    #  #
+#       #       #       #    #  #        #  #   #    #  #
+#       #    #  #       #   ##  #       #    #  #   ##  #
+######   ####   #        ### #  #       #    #   ### #  ######
+''')
+decoded.append('LCPGPXGL')
+
+
+def letters(s):
+    """Split individual letters from multiline displayed font."""
+    lines = [line.rstrip() for line in s.split('\n') if line]
+    width, spacing = (4, 1) if len(lines) == 6 else (6, 2)
+    while all(line.startswith(' ') for line in lines):
+        lines = [line[1:] for line in lines]
+    for letter in zip(*(chunk_iter(line, width + spacing) for line in lines)):
+        yield '\n'.join(seq.rstrip() for seq in letter)
+
+
+@functools.lru_cache(1)
+def build_map():
+    """Build map of glyphs for ocr."""
+    glyphs = dict(zip(itertools.chain(*(letters(s) for s in font_samples)), ''.join(decoded)))
+    for s, truth in zip(font_samples, decoded):
+        assert ocr(s, glyphs) == truth
+    return glyphs
+
+
+def ocr(s, glyph_map=None):
+    """Perform character recognition from AOC's font."""
+    if glyph_map is None:
+        glyph_map = build_map()
+    return ''.join(glyph_map.get(letter, '_') for letter in letters(s.replace('.', ' ')))
 
 
 @contextlib.contextmanager

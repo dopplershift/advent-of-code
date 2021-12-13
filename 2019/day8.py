@@ -1,6 +1,6 @@
 import numpy as np
 
-from aoc_tools import chunk_iter
+from aoc_tools import chunk_iter, ocr
 
 
 def iter_layers(data, shape):
@@ -28,8 +28,5 @@ if __name__ == '__main__':
         image[mask] = layer[mask]
 
     render = '\n'.join(''.join('#' if item == WHITE else ' ' for item in row) for row in image)
-    print(render, sep='\n')
-
-    # Found by looking at render above
-    puz.answer_b = 'KAUZA'
+    puz.answer_b = ocr(render)
     print(f'Part 2: {puz.answer_b}')

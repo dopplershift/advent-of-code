@@ -1,5 +1,7 @@
 import numpy as np
 
+from aoc_tools import ocr
+
 
 def parse(f):
     for line in f:
@@ -38,9 +40,8 @@ if __name__ == '__main__':
 
     for x,y in zip(final_x, final_y):
         board[y - min_y][x - min_x] = '#'
-    print('\n'.join(''.join(row)for row in board))
 
-    puz.answer_a = 'LCPGPXGL'
+    puz.answer_a = ocr('\n'.join(''.join(row)for row in board))
     print(f'Part 1: {puz.answer_a}')
 
     puz.answer_b = min_time

@@ -1,3 +1,4 @@
+from aoc_tools import ocr
 from geom import Point, Vector
 from intcode import Computer
 
@@ -39,7 +40,5 @@ if __name__ == '__main__':
     puz.answer_a = len(paint(codes))
     print(f'Part 1: {puz.answer_a}')
 
-    img = to_image(paint(codes, start=1))
-    print(img, sep='\n')
-    puz.answer_b = 'LEPCPLGZ'
+    puz.answer_b = ocr(to_image(paint(codes, start=1)))
     print(f'Part 2: {puz.answer_b}')
