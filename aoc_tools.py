@@ -41,16 +41,6 @@ font_samples.append('''
 decoded.append('KAUZA')
 
 font_samples.append('''
-#    #### ###   ##  ###  #     ##  ####
-#    #    #  # #  # #  # #    #  #    #
-#    ###  #  # #    #  # #    #      #
-#    #    ###  #    ###  #    # ##  #
-#    #    #    #  # #    #    #  # #
-#### #### #     ##  #    ####  ### ####
-''')
-decoded.append('LEPCPLGZ')
-
-font_samples.append('''
 ###   ##  #### #    ###  #  # #### ###
 #  # #  #    # #    #  # #  # #    #  #
 #  # #      #  #    ###  #### ###  #  #
