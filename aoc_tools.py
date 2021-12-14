@@ -100,12 +100,18 @@ def update_sys_path(path):
 
 
 def run_solution(year, day, data):
-    output = io.StringIO()
-    sol_path = Path(__file__).parent / f'{year}'
-    with contextlib.redirect_stdout(output), update_sys_path(str(sol_path)):
-        exec(open(sol_path / f'day{day}.py', 'rt').read(), {'__name__': '__main__'})
-    ret = tuple(res[0] for line in output.getvalue().splitlines()
-                if (res := re.findall(r'Part \d:\s?(.*)', line)))
+    import importlib
+    try:
+        sol = importlib.import_module(f'{year}.day{day}')
+        ret = sol.run(data)
+    except AttributeError:
+        output = io.StringIO()
+        sol_path = Path(__file__).parent / f'{year}'
+        with contextlib.redirect_stdout(output), update_sys_path(str(sol_path)):
+            exec(open(sol_path / f'day{day}.py', 'rt').read(), {'__name__': '__main__'})
+        ret = tuple(res[0] for line in output.getvalue().splitlines()
+                    if (res := re.findall(r'Part \d:\s?(.*)', line)))
+        ret = 'foo', 'bar'
     if day == 25:
         ret = ret + ('',)
     return ret
