@@ -1,3 +1,8 @@
+def run(data):
+    orbits = get_orbits(data.split('\n'))
+    return count_total_orbits(orbits), transfers(find_path(orbits))
+
+
 def get_orbits(src):
     orbits = {}
     for line in src:
@@ -57,10 +62,10 @@ if __name__ == '__main__':
     assert transfers(find_path(o)) == 4
 
     puz = Puzzle(2019, 6)
-    orbits = get_orbits(puz.input_data.split('\n'))
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = count_total_orbits(orbits)
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = transfers(find_path(orbits))
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

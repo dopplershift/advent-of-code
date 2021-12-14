@@ -3,6 +3,16 @@ import numpy as np
 from aoc_tools import chunk_iter
 from intcode import Computer
 
+
+def run(data):
+    c = Computer.fromstring(data)
+    c.run()
+    part_a = sum(1 for *_, t in chunk_iter(c.output, 3) if t == 2)
+
+    c = Computer.fromstring(data)
+    return part_a, play_game(c)
+
+
 def play_game(c):
     # Insert 2 quarters
     c.memory[0] = 2
@@ -35,12 +45,10 @@ if __name__ == '__main__':
     from aocd.models import Puzzle
 
     puz = Puzzle(2019, 13)
-    c = Computer.fromstring(puz.input_data)
-    c.run()
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = sum(1 for *_, t in chunk_iter(c.output, 3) if t == 2)
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    c = Computer.fromstring(puz.input_data)
-    puz.answer_b = play_game(c)
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

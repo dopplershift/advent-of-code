@@ -1,5 +1,17 @@
 from intcode import Computer
 
+def run(data):
+    c = Computer.fromstring(data)
+    c.run([1])
+    part_a = c.output[0]
+
+    c = Computer.fromstring(data)
+    c.run([2])
+    part_b = c.output[0]
+
+    return part_a, part_b
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
@@ -17,13 +29,10 @@ if __name__ == '__main__':
     assert c.output == [1125899906842624]
 
     puz = Puzzle(2019, 9)
+    part_a, part_b = run(puz.input_data)
 
-    c = Computer.fromstring(puz.input_data)
-    c.run([1])
-    puz.answer_a = c.output[0]
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    c = Computer.fromstring(puz.input_data)
-    c.run([2])
-    puz.answer_b = c.output[0]
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

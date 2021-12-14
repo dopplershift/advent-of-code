@@ -5,6 +5,18 @@ import numpy as np
 
 from aoc_tools import gcd
 
+
+def run(data):
+    moons = list(parse(data.split('\n')))
+    run_moons(moons, 1000)
+    part_a = int(sum(m.total_energy for m in moons))
+
+    moons = list(parse(data.split('\n')))
+    part_b = find_cycle_count(moons)
+
+    return part_a, part_b
+
+
 class Moon:
     def __init__(self, x, y, z, vel=None):
         self.pos = np.array([x, y, z])
@@ -58,7 +70,7 @@ def parse(fobj):
         yield Moon.fromstring(line)
 
 
-def run(moons, n):
+def run_moons(moons, n):
     for i in range(n):
         _step(moons)
 
@@ -98,7 +110,7 @@ if __name__ == '__main__':
     <x=2, y=-10, z=-7>
     <x=4, y=-8, z=8>
     <x=3, y=5, z=-1>'''.split('\n')))
-    run(moons, 10)
+    run_moons(moons, 10)
 
     assert moons[0] == Moon(2, 1, -3, (-3, -2, 1))
     assert moons[1] == Moon(1, -8, 0, (-1, 1, 3))
@@ -110,7 +122,7 @@ if __name__ == '__main__':
     <x=5, y=5, z=10>
     <x=2, y=-7, z=3>
     <x=9, y=-8, z=-3>'''.split('\n')))
-    run(moons, 100)
+    run_moons(moons, 100)
 
     assert moons[0] == Moon(8, -12, -9, (-7, 3, 0))
     assert moons[1] == Moon(13, 16, -3, (3, -11, -5))
@@ -133,11 +145,10 @@ if __name__ == '__main__':
 
 
     puz = Puzzle(2019, 12)
-    moons = list(parse(puz.input_data.split('\n')))
-    run(moons, 1000)
-    puz.answer_a = int(sum(m.total_energy for m in moons))
+    part_a, part_b = run(puz.input_data)
+
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    moons = list(parse(puz.input_data.split('\n')))
-    puz.answer_b = find_cycle_count(moons)
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

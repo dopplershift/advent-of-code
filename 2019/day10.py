@@ -5,6 +5,15 @@ import numpy as np
 from aoc_tools import gcd
 
 
+def run(data):
+    a = read_asteroids(data.split('\n'))
+    best, loc = find_max_options(a)
+
+    # 199 -> 200th asteroid
+    pt = order_by_angles(a, loc)[:, 199]
+    return best, int(100 * pt[0] + pt[1])
+
+
 def read_asteroids(lines):
     return [(col, row)
             for row, line in enumerate(lines)
@@ -151,13 +160,10 @@ if __name__ == '__main__':
     assert tuple(order_by_angles(t, (11, 13))[:, 199]) == (8, 2)
 
     puz = Puzzle(2019, 10)
-    a = read_asteroids(puz.input_data.split('\n'))
-    best, loc = find_max_options(a)
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = best
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    # 199 -> 200th asteroid
-    pt = order_by_angles(a, loc)[:, 199]
-    puz.answer_b = int(100 * pt[0] + pt[1])
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

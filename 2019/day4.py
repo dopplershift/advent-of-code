@@ -1,3 +1,10 @@
+def run(data):
+    start, end = map(int, data.split('-'))
+    part_a = sum(is_valid(str(i)) for i in range(start, end + 1))
+    part_b = sum(is_valid2(str(i)) for i in range(start, end + 1))
+    return part_a, part_b
+
+
 def is_valid(pwd):
     has_pair = False
     for i,j in zip(pwd[:-1], pwd[1:]):
@@ -33,10 +40,10 @@ if __name__ == '__main__':
     assert is_valid2('111122')
 
     puz = Puzzle(2019, 4)
-    start, end = map(int, puz.input_data.split('-'))
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = sum(is_valid(str(i)) for i in range(start, end + 1))
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = sum(is_valid2(str(i)) for i in range(start, end + 1))
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

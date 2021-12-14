@@ -1,3 +1,7 @@
+def run(data):
+    return solve(*data.split('\n')), solve2(*data.split('\n'))
+
+
 def solve(line1, line2):
     wire1 = make_paths(line1.split(','))
     wire2 = make_paths(line2.split(','))
@@ -66,17 +70,15 @@ def solve2(line1, line2):
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
-    assert solve('R8,U5,L5,D3', 'U7,R6,D4,L4') == 6
-    assert solve('R75,D30,R83,U83,L12,D49,R71,U7,L72', 'U62,R66,U55,R34,D71,R55,D58,R83') == 159
-    assert solve('R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51', 'U98,R91,D20,R16,D67,R40,U7,R15,U6,R7') == 135
-
-    assert solve2('R8,U5,L5,D3', 'U7,R6,D4,L4') == 30
-    assert solve2('R75,D30,R83,U83,L12,D49,R71,U7,L72', 'U62,R66,U55,R34,D71,R55,D58,R83') == 610
-    assert solve2('R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51', 'U98,R91,D20,R16,D67,R40,U7,R15,U6,R7') == 410
+    assert run('R8,U5,L5,D3\nU7,R6,D4,L4') == (6, 30)
+    assert run('R75,D30,R83,U83,L12,D49,R71,U7,L72\nU62,R66,U55,R34,D71,R55,D58,R83') == (159, 610)
+    assert run('R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51\nU98,R91,D20,R16,D67,R40,U7,R15,U6,R7') == (135, 410)
 
     puz = Puzzle(2019, 3)
-    puz.answer_a = solve(*puz.input_data.split('\n'))
+    part_a, part_b = run(puz.input_data)
+
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = solve2(*puz.input_data.split('\n'))
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

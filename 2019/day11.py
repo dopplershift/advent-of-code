@@ -2,6 +2,12 @@ from aoc_tools import ocr
 from geom import Point, Vector
 from intcode import Computer
 
+
+def run(data):
+    codes = [int(c) for c in data.split(',')]
+    return len(paint(codes)), ocr(to_image(paint(codes, start=1)))
+
+
 def paint(codes, start=0):
     c = Computer(codes)
 
@@ -22,6 +28,7 @@ def paint(codes, start=0):
         loc += direc
     return panels
 
+
 def to_image(panels):
     min_row = min(panels.keys(), key=lambda i:i.y).y
     max_row = max(panels.keys(), key=lambda i:i.y).y
@@ -36,9 +43,10 @@ if __name__ == '__main__':
     from aocd.models import Puzzle
 
     puz = Puzzle(2019, 11)
-    codes = [int(c) for c in puz.input_data.split(',')]
-    puz.answer_a = len(paint(codes))
+    part_a, part_b = run(puz.input_data)
+
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = ocr(to_image(paint(codes, start=1)))
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

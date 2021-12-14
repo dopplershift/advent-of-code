@@ -2,6 +2,12 @@ import itertools
 
 from intcode import Computer
 
+
+def run(data):
+    code = [int(c) for c in data.split(',')]
+    return find_max_thrust(code)[-1], find_max_thrust_feedback(code)[-1]
+
+
 def find_max_thrust(code):
     max_thrust = 0
     for phases in itertools.permutations(range(5), 5):
@@ -53,10 +59,10 @@ if __name__ == '__main__':
             == ((9, 7, 8, 5, 6), 18216))
 
     puz = Puzzle(2019, 7)
-    code = [int(c) for c in puz.input_data.split(',')]
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = find_max_thrust(code)[-1]
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = find_max_thrust_feedback(code)[-1]
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')
