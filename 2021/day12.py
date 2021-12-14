@@ -1,3 +1,8 @@
+def run(data):
+    graph = parse(data)
+    return len(all_paths(graph)), len(all_paths(graph, can_repeat=True))
+
+
 def parse(s):
     graph = {}
     for line in s.split('\n'):
@@ -55,12 +60,9 @@ kj-sa
 kj-HN
 kj-dc'''
 
-    graph = parse(sample)
-    paths = all_paths(graph)
-    assert len(paths) == 19
-
-    more_paths = all_paths(graph, can_repeat=True)
-    assert len(more_paths) == 103
+    test1_a, test1_b = run(sample)
+    assert test1_a == 19
+    assert test1_b == 103
 
     sample2 = '''fs-end
 he-DX
@@ -81,18 +83,15 @@ zg-he
 pj-fs
 start-RW'''
 
-    graph = parse(sample2)
-    paths = all_paths(graph)
-    assert len(paths) == 226
-
-    more_paths = all_paths(graph, can_repeat=True)
-    assert len(more_paths) == 3509
+    test2_a, test2_b = run(sample2)
+    assert test2_a == 226
+    assert test2_b == 3509
 
     puz = Puzzle(2021, 12)
-    graph = parse(puz.input_data)
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = len(all_paths(graph))
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = len(all_paths(graph, can_repeat=True))
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

@@ -2,6 +2,11 @@ from collections import Counter
 import functools
 
 
+def run(data):
+    entries = parse(data)
+    return part1(entries), solve(entries)
+
+
 def parse(s):
     return [tuple(map(lambda s: s.split(' '), line.split(' | '))) for line in s.split('\n')]
 
@@ -72,18 +77,19 @@ bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cdgba cbg
 egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
 gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce'''
 
-    entries = parse(sample)
-    assert part1(entries) == 26
     assert decode(*parse('acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf')[0]) == 5353
-    for item, answer in zip(entries, [8394, 9781, 1197, 9361, 4873, 8418, 4548, 1625, 8717, 4315]):
+    for item, answer in zip(parse(sample), [8394, 9781, 1197, 9361, 4873, 8418, 4548, 1625, 8717, 4315]):
         assert decode(*item) == answer
-    assert solve(entries) == 61229
+
+    test_a, test_b = run(sample)
+    assert test_a == 26
+    assert test_b == 61229
 
     puz = Puzzle(2021, 8)
-    entries = parse(puz.input_data)
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = part1(entries)
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = solve(entries)
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

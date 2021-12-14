@@ -16,6 +16,9 @@ def solve(s):
     return x * aim, x * depth
 
 
+run = solve
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 

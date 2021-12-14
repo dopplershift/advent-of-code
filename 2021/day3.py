@@ -1,3 +1,7 @@
+def run(data):
+    return power_consumption(data), life_support_rating(data)
+
+
 def common_bit(bits):
     return '1' if bits.count('1') >= len(bits) / 2 else '0'
 
@@ -41,13 +45,15 @@ if __name__ == '__main__':
 00010
 01010'''
 
-    assert power_consumption(sample) == 198
-    assert life_support_rating(sample) == 230
+    test_a, test_b = run(sample)
+    assert test_a == 198
+    assert test_b == 230
 
     puz = Puzzle(2021, 3)
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = power_consumption(puz.input_data)
-    print('Part 1:', puz.answer_a)
+    puz.answer_a = part_a
+    print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = life_support_rating(puz.input_data)
-    print('Part 2:', puz.answer_b)
+    puz.answer_b = part_b
+    print(f'Part 2: {puz.answer_b}')

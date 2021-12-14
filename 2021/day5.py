@@ -2,6 +2,11 @@ from ast import literal_eval
 from collections import defaultdict
 
 
+def run(data):
+    segs = parse(data)
+    return count(make_grid(segs)), count(make_grid(segs, diag=True))
+
+
 def parse(s):
     return [tuple(map(literal_eval, line.split(' -> ')))
             for line in s.split('\n')]
@@ -44,15 +49,15 @@ if __name__ == '__main__':
 0,0 -> 8,8
 5,5 -> 8,2'''
 
-    segs = parse(sample)
-    assert count(make_grid(segs)) == 5
-    assert count(make_grid(segs, diag=True)) == 12
+    test_a, test_b = run(sample)
+    assert test_a == 5
+    assert test_b == 12
 
     puz = Puzzle(2021, 5)
-    segs = parse(puz.input_data)
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = count(make_grid(segs))
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = count(make_grid(segs, diag=True))
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

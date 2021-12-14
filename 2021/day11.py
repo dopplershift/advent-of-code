@@ -1,6 +1,14 @@
 from itertools import count, product
 
 
+def run(data):
+    grid = parse(data)
+    part_a = simulate(grid, 100)
+    grid = parse(data)
+    part_b = find_synchro(grid)
+    return part_a, part_b
+
+
 def parse(s):
     grid = {}
     for r, row in enumerate(s.split('\n')):
@@ -66,15 +74,16 @@ if __name__ == '__main__':
 5283751526'''
 
     assert simulate(parse(sample), 10) == 204
-    assert simulate(parse(sample), 100) == 1656
-    assert find_synchro(parse(sample)) == 195
+
+    test_a, test_b = run(sample)
+    assert test_a == 1656
+    assert test_b == 195
 
     puz = Puzzle(2021, 11)
+    part_a, part_b = run(puz.input_data)
 
-    grid = parse(puz.input_data)
-    puz.answer_a = simulate(grid, 100)
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    grid = parse(puz.input_data)
-    puz.answer_b = find_synchro(grid)
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

@@ -1,3 +1,8 @@
+def run(data):
+    n, boards = parse(data)
+    return find_winner(boards, n), find_loser(boards, n)
+
+
 def parse(s):
     lines = s.split('\n')
     nums = list(map(int, lines[0].split(',')))
@@ -59,15 +64,15 @@ if __name__ == '__main__':
 22 11 13  6  5
  2  0 12  3  7'''
 
-    n, boards = parse(sample)
-    assert find_winner(boards, n) == 4512
-    assert find_loser(boards, n) == 1924
+    test_a, test_b = run(sample)
+    assert test_a == 4512
+    assert test_b == 1924
 
     puz = Puzzle(2021, 4)
-    n, boards = parse(puz.input_data)
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = find_winner(boards, n)
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = find_loser(boards, n)
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

@@ -31,6 +31,10 @@ def check_code(s):
             syntax_score += syntax_points[char]
     return syntax_score, sorted(completion_scores)[len(completion_scores) // 2]
 
+
+run = check_code
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 

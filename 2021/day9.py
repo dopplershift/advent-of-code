@@ -3,6 +3,11 @@ import functools
 import operator
 
 
+def run(data):
+    grid = parse(data)
+    return total_risk(grid), basins(grid)
+
+
 def parse(s):
     return [list(map(int, line)) for line in s.split('\n')]
 
@@ -21,7 +26,7 @@ def neighbors(x, y, grid):
 def low_points(height_map):
     for y, row in enumerate(height_map):
         for x, col in enumerate(row):
-            if all(col < grid[oy][ox] for ox, oy in neighbors(x, y, height_map)):
+            if all(col < height_map[oy][ox] for ox, oy in neighbors(x, y, height_map)):
                 yield x, y
 
 
@@ -58,15 +63,15 @@ if __name__ == '__main__':
 8767896789
 9899965678'''
 
-    grid = parse(sample)
-    assert total_risk(grid) == 15
-    assert basins(grid) == 1134
+    test_a, test_b = run(sample)
+    assert test_a == 15
+    assert test_b == 1134
 
     puz = Puzzle(2021, 9)
-    grid = parse(puz.input_data)
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = total_risk(grid)
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = basins(grid)
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

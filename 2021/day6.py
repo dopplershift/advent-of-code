@@ -1,3 +1,8 @@
+def run(data):
+    pop = parse(data)
+    return age(pop, 80), age(pop, 256)
+
+
 def parse(s):
     return list(map(int, s.split(',')))
 
@@ -28,16 +33,17 @@ if __name__ == '__main__':
 
     sample = '''3,4,3,1,2'''
 
-    pop = parse(sample)
-    assert age(pop, 18) == 26
-    assert age(pop, 80) == 5934
-    assert age(pop, 256) == 26984457539
+    assert age(parse(sample), 18) == 26
+
+    test_a, test_b = run(sample)
+    assert test_a == 5934
+    assert test_b == 26984457539
 
     puz = Puzzle(2021, 6)
-    pop = parse(puz.input_data)
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = age(pop, 80)
-    print('Part 1:', puz.answer_a)
+    puz.answer_a = part_a
+    print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = age(pop, 256)
-    print('Part 2:', puz.answer_b)
+    puz.answer_b = part_b
+    print(f'Part 2: {puz.answer_b}')

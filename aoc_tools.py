@@ -64,14 +64,23 @@ font_samples.append('''
 ''')
 decoded.append('LCPGPXGL')
 
+font_samples.append('''
+#####
+#   #
+#   #
+#   #
+#####
+
+''')
+decoded.append('□')
 
 def letters(s):
     """Split individual letters from multiline displayed font."""
     lines = [line.rstrip() for line in s.split('\n') if line]
-    width, spacing = (4, 1) if len(lines) == 6 else (6, 2)
+    chunk_size = 5 if len(lines) == 6 else 8
     while all(line.startswith(' ') for line in lines):
         lines = [line[1:] for line in lines]
-    for letter in zip(*(chunk_iter(line, width + spacing) for line in lines)):
+    for letter in zip(*(chunk_iter(line, chunk_size) for line in lines)):
         yield '\n'.join(seq.rstrip() for seq in letter)
 
 

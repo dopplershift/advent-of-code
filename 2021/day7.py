@@ -1,3 +1,8 @@
+def run(data):
+    locs = parse(data)
+    return solve(locs), solve(locs, cost2)
+
+
 def parse(s):
     return list(map(int, s.split(',')))
 
@@ -20,13 +25,16 @@ if __name__ == '__main__':
     from aocd.models import Puzzle
 
     sample = '16,1,2,0,4,2,7,1,2,14'
-    assert solve(parse(sample)) == 37
-    assert solve(parse(sample), cost2) == 168
+
+    test_a, test_b = run(sample)
+    assert test_a == 37
+    assert test_b == 168
 
     puz = Puzzle(2021, 7)
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = solve(parse(puz.input_data))
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = solve(parse(puz.input_data), cost2)
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

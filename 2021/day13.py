@@ -3,6 +3,12 @@ import re
 
 from aoc_tools import ocr
 
+
+def run(data):
+    dots, folds = parse(data)
+    return len(do_folds(dots, folds[:1])), ocr(display(do_folds(dots, folds)))
+
+
 def parse(s):
     dots, folds = s.split('\n\n')
     dots = set(literal_eval(d) for d in dots.split('\n'))
@@ -53,15 +59,15 @@ if __name__ == '__main__':
 fold along y=7
 fold along x=5'''
 
-    dots, folds = parse(sample)
-    assert len(do_folds(dots, folds[:1])) == 17
-    assert len(do_folds(dots, folds)) == 16
+    test_a, test_b = run(sample)
+    assert test_a == 17
+    assert test_b == '□'
 
     puz = Puzzle(2021, 13)
-    dots, folds = parse(puz.input_data)
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = len(do_folds(dots, folds[:1]))
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = ocr(display(do_folds(dots, folds)))
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')
