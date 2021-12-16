@@ -14,10 +14,24 @@ def gcd(x, y):
     return x
 
 
-def chunk_iter(seq, size):
-    '''Iterate over sequence in fixed size chunks.'''
-    for ind in range(0, len(seq), size):
-        yield seq[ind:ind + size]
+def ext_euclid(a,b):
+    """Extended Euclid's algorithm for GCD.
+    Given input a, b the function returns d such that gcd(a,b) = d
+    and x, y such that ax + by = d, as well as u, v such that au = bv."""
+    if a < b:
+        a, b = b, a
+    u, v, x, y = 0, 1, 1, 0
+    while b != 0:
+        a, b, x, y, u, v = b, a % b, u, v, x - ( a // b ) * u, y - ( a // b ) * v
+    return a, x, y, u, v
+
+
+# Taken from itertools stdlib docs
+def grouper(iterable, n, fillvalue=None):
+    "Collect data into non-overlapping fixed-length chunks or blocks"
+    # grouper('ABCDEFG', 3, 'x') --> ABC DEF Gxx
+    args = [iter(iterable)] * n
+    return itertools.zip_longest(*args, fillvalue=fillvalue)
 
 
 font_samples = ['''
