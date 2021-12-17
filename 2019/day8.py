@@ -1,6 +1,6 @@
 import numpy as np
 
-from aoc_tools import chunk_iter, ocr
+from aoc_tools import grouper, ocr
 
 
 layer_shape = (6, 25)
@@ -24,7 +24,7 @@ def run(data):
 
 def iter_layers(data, shape):
     rows, cols = shape
-    for layer in chunk_iter(data, rows * cols):
+    for layer in grouper(data, rows * cols):
         yield np.array([int(c) for c in layer]).reshape(*shape)
 
 

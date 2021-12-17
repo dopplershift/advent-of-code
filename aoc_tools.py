@@ -94,8 +94,8 @@ def letters(s):
     chunk_size = 5 if len(lines) == 6 else 8
     while all(line.startswith(' ') for line in lines):
         lines = [line[1:] for line in lines]
-    for letter in zip(*(chunk_iter(line, chunk_size) for line in lines)):
-        yield '\n'.join(seq.rstrip() for seq in letter)
+    for letter in zip(*(grouper(line, chunk_size, '') for line in lines)):
+        yield '\n'.join(''.join(seq).rstrip() for seq in letter)
 
 
 @functools.lru_cache(1)

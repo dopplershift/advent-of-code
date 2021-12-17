@@ -1,13 +1,13 @@
 import numpy as np
 
-from aoc_tools import chunk_iter
+from aoc_tools import grouper
 from intcode import Computer
 
 
 def run(data):
     c = Computer.fromstring(data)
     c.run()
-    part_a = sum(1 for *_, t in chunk_iter(c.output, 3) if t == 2)
+    part_a = sum(1 for *_, t in grouper(c.output, 3) if t == 2)
 
     c = Computer.fromstring(data)
     return part_a, play_game(c)
@@ -23,7 +23,7 @@ def play_game(c):
     paddle_x = 0
     while c.running:
         c.run([np.sign(ball_x - paddle_x)])
-        for x, y, t in chunk_iter(c.output, 3):
+        for x, y, t in grouper(c.output, 3):
             if x == -1 and y == 0:
                 score = t
             else:
