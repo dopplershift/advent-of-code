@@ -71,20 +71,15 @@ def walk_scaffold(layout, robot):
     return ','.join(str(i) for i in moves)
 
 
-if __name__ == '__main__':
-    from aocd.models import Puzzle
-
-    puz = Puzzle(2019, 17)
-    c = Computer.fromstring(puz.input_data)
+def run(data):
+    c = Computer.fromstring(data)
     c.run()
     layout, robot = parse_output(c.output)
     # print_board(layout)
 
-    v = sum(r * c for r in range(1, len(layout) - 1)
-                  for c in range(1, len(layout[0]) - 1)
-                  if {layout[r][c], layout[r + 1][c], layout[r - 1][c], layout[r][c - 1], layout[r][c + 1]} == {'#'})
-    puz.answer_a = v
-    print(f'Part 1: {puz.answer_a}')
+    part_a = sum(r * c for r in range(1, len(layout) - 1)
+                       for c in range(1, len(layout[0]) - 1)
+                       if {layout[r][c], layout[r + 1][c], layout[r - 1][c], layout[r][c - 1], layout[r][c + 1]} == {'#'})
 
     move_str = walk_scaffold(layout, robot)
 
@@ -94,9 +89,21 @@ if __name__ == '__main__':
     sub_c = 'L,10,R,10,L,6'
     main = move_str.replace(sub_a, 'A').replace(sub_b, 'B').replace(sub_c, 'C')
 
-    c = Computer.fromstring(puz.input_data)
+    c = Computer.fromstring(data)
     c.memory[0] = 2
     c.run(main + '\n' + sub_a + '\n' + sub_b + '\n' + sub_c + '\nn\n')
     # c.display_ascii()
-    puz.answer_b = c.output[-1]
+    return part_a, c.output[-1]
+
+
+if __name__ == '__main__':
+    from aocd.models import Puzzle
+
+    puz = Puzzle(2019, 17)
+    part_a, part_b = run(puz.input_data)
+
+    puz.answer_a = part_a
+    print(f'Part 1: {puz.answer_a}')
+
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

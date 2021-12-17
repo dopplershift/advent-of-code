@@ -101,17 +101,26 @@ class DonutMaze(Maze):
         return bfs.order()
 
 
+def run(data):
+    m = Maze(data)
+    p = m.find_path()
+    part_a = len(p) - 1
+
+    dm = DonutMaze(data)
+    p = dm.find_path()
+    part_b = len(p) - 1
+
+    return part_a, part_b
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
     puz = Puzzle(2019, 20)
+    part_a, part_b = run(puz.input_data)
 
-    m = Maze(puz.input_data)
-    p = m.find_path()
-    puz.answer_a = len(p) - 1
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    dm = DonutMaze(puz.input_data)
-    p = dm.find_path()
-    puz.answer_b = len(p) - 1
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

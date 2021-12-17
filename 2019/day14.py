@@ -1,5 +1,6 @@
 from collections import Counter
 
+
 class Creator:
     def __init__(self, recipes):
         self.recipes = recipes
@@ -36,10 +37,10 @@ class Creator:
     def max_for_ore(self, item, limit=1000000000000):
         lower = 1
         upper = limit
-        guess = limit // c.make(item, 1) * 2
+        guess = limit // self.make(item, 1) * 2
         while upper - lower > 1:
 #            print(lower, upper, guess)
-            ore = c.make(item, guess)
+            ore = self.make(item, guess)
             if ore > limit:
                 upper = guess
             elif ore < limit:
@@ -48,6 +49,11 @@ class Creator:
                 return guess
             guess = (lower + upper) // 2
         return lower
+
+
+def run(data):
+    c = Creator.fromfile(data.split('\n'))
+    return c.make('FUEL', 1), c.max_for_ore('FUEL')
 
 
 if __name__ == '__main__':
@@ -70,7 +76,7 @@ if __name__ == '__main__':
     2 AB, 3 BC, 4 CA => 1 FUEL""".split('\n'))
     assert c.make('FUEL', 1) == 165
 
-    c = Creator.fromfile("""157 ORE => 5 NZVS
+    sample = '''157 ORE => 5 NZVS
     165 ORE => 6 DCFZ
     44 XJWVT, 5 KHKGT, 1 QDVJ, 29 NZVS, 9 GPVTF, 48 HKGWZ => 1 FUEL
     12 HKGWZ, 1 GPVTF, 8 PSHF => 9 QDVJ
@@ -78,11 +84,12 @@ if __name__ == '__main__':
     177 ORE => 5 HKGWZ
     7 DCFZ, 7 PSHF => 2 XJWVT
     165 ORE => 2 GPVTF
-    3 DCFZ, 7 NZVS, 5 HKGWZ, 10 PSHF => 8 KHKGT""".split('\n'))
-    assert c.make('FUEL', 1) == 13312
-    assert c.max_for_ore('FUEL') == 82892753
+    3 DCFZ, 7 NZVS, 5 HKGWZ, 10 PSHF => 8 KHKGT'''
+    test_a, test_b = run(sample)
+    assert test_a == 13312
+    assert test_b == 82892753
 
-    c = Creator.fromfile("""2 VPVL, 7 FWMGM, 2 CXFTF, 11 MNCFX => 1 STKFG
+    sample = '''2 VPVL, 7 FWMGM, 2 CXFTF, 11 MNCFX => 1 STKFG
     17 NVRVD, 3 JNWZP => 8 VPVL
     53 STKFG, 6 MNCFX, 46 VJHF, 81 HVMC, 68 CXFTF, 25 GNMV => 1 FUEL
     22 VJHF, 37 MNCFX => 5 FWMGM
@@ -93,11 +100,12 @@ if __name__ == '__main__':
     145 ORE => 6 MNCFX
     1 NVRVD => 8 CXFTF
     1 VJHF, 6 MNCFX => 4 RFSQX
-    176 ORE => 6 VJHF""".split('\n'))
-    assert c.make('FUEL', 1) == 180697
-    assert c.max_for_ore('FUEL') == 5586022
+    176 ORE => 6 VJHF'''
+    test_a, test_b = run(sample)
+    assert test_a == 180697
+    assert test_b == 5586022
 
-    c = Creator.fromfile("""171 ORE => 8 CNZTR
+    sample = '''171 ORE => 8 CNZTR
     7 ZLQW, 3 BMBT, 9 XCVML, 26 XMNCP, 1 WPTQ, 2 MZWV, 1 RJRHP => 4 PLWSL
     114 ORE => 4 BHXH
     14 VRPVC => 6 BMBT
@@ -113,15 +121,16 @@ if __name__ == '__main__':
     3 BHXH, 2 VRPVC => 7 MZWV
     121 ORE => 7 VRPVC
     7 XCVML => 6 RJRHP
-    5 BHXH, 4 VRPVC => 5 LTCX""".split('\n'))
-    assert c.make('FUEL', 1) == 2210736
-    assert c.max_for_ore('FUEL') == 460664
+    5 BHXH, 4 VRPVC => 5 LTCX'''
+    test_a, test_b = run(sample)
+    assert test_a == 2210736
+    assert test_b == 460664
 
     puz = Puzzle(2019, 14)
-    c = Creator.fromfile(puz.input_data.split('\n'))
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = c.make('FUEL', 1)
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = c.max_for_ore('FUEL')
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

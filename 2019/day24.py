@@ -91,20 +91,28 @@ def run_board_recursive(board, size, minutes):
     return board
 
 
+def run(data):
+    board = cycle_board(data.split('\n'))
+    part_a = sum(2**i for i, c in enumerate(''.join(board)) if c == '#')
+
+    board = {(0, r, c)
+             for r, line in enumerate(data.split('\n'))
+             for c, char in enumerate(line.strip())
+             if char == '#'}
+    size = len(data.split('\n')[0])
+
+    board = run_board_recursive(board, size, 200)
+    return part_a, len(board)
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
     puz = Puzzle(2019, 24)
-    board = cycle_board(puz.input_data.split('\n'))
-    puz.answer_a = sum(2**i for i, c in enumerate(''.join(board)) if c == '#')
+    part_a, part_b = run(puz.input_data)
+
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    board = {(0, r, c)
-             for r, line in enumerate(puz.input_data.split('\n'))
-             for c, char in enumerate(line.strip())
-             if char == '#'}
-    size = len(puz.input_data.split('\n')[0])
-
-    board = run_board_recursive(board, size, 200)
-    puz.answer_b = len(board)
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

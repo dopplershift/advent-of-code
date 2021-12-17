@@ -53,7 +53,7 @@ def walk(c):
             path.pop()
 
 
-def action(s):
+def action(c, s):
     c.run(s + '\n')
     ret = parse_screen(c.ascii_output)
     c.clear_output()
@@ -61,10 +61,10 @@ def action(s):
 
 
 def solve(c):
-    _, _, all_items = action('inv')
+    _, _, all_items = action(c, 'inv')
     all_items = set(all_items)
     for item in all_items:
-        action(f'drop {item}')
+        action(c, f'drop {item}')
 
     too_much = []
     items = set()
@@ -72,9 +72,9 @@ def solve(c):
         for subset in itertools.combinations(all_items, i):
             subset = set(subset)
             for item in items - subset:
-                action(f'drop {item}')
+                action(c, f'drop {item}')
             for item in subset - items:
-                action(f'take {item}')
+                action(c, f'take {item}')
             items = subset
 
             c.run('south\n')
@@ -89,13 +89,15 @@ def solve(c):
             all_items -= set(too_much)
 
 
+def run(data):
+    c = Computer.fromstring(data)
+    walk(c)
+    return solve(c),
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
     puz = Puzzle(2019, 25)
-    c = Computer.fromstring(puz.input_data)
-    walk(c)
-    code = solve(c)
-
-    puz.answer_a = code
+    puz.answer_a = run(puz.input_data)[0]
     print(f'Part 1: {puz.answer_a}')

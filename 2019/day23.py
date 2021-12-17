@@ -50,14 +50,19 @@ def run_network(source):
     return network[255]
 
 
+def run(data):
+    nat = run_network(data.strip())
+    return nat.part1, nat.part2
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
     puz = Puzzle(2019, 23)
-    nat = run_network(puz.input_data.strip())
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = nat.part1
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = nat.part2
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

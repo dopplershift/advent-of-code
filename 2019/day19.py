@@ -40,15 +40,24 @@ def find_location(cp):
     return loc
 
 
+def run(data):
+    cp = CheckPoint(data)
+    part_a = scan(cp)
+
+    loc = find_location(cp)
+    part_b = 10000 * loc.x + loc.y
+
+    return part_a, part_b
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
     puz = Puzzle(2019, 19)
+    part_a, part_b = run(puz.input_data)
 
-    cp = CheckPoint(puz.input_data)
-    puz.answer_a = scan(cp)
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    loc = find_location(cp)
-    puz.answer_b = 10000 * loc.x + loc.y
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

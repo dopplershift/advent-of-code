@@ -110,6 +110,14 @@ class Maze:
 
         return dist
 
+def run(data):
+    part_a = Maze(data.split('\n')).find_dist()
+
+    m = Maze(data.split('\n'))
+    m.set_multi_board()
+    return part_a, m.find_dist_mult()
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
@@ -180,11 +188,10 @@ if __name__ == '__main__':
     assert Maze(test_layout).find_dist_mult() == 32
 
     puz = Puzzle(2019, 18)
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = Maze(puz.input_data.split('\n')).find_dist()
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    m = Maze(puz.input_data.split('\n'))
-    m.set_multi_board()
-    puz.answer_b = m.find_dist_mult()
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

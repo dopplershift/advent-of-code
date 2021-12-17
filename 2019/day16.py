@@ -40,6 +40,13 @@ def decode(digits):
     return phases_off(digits * 10000, 100, offset)[:8]
 
 
+def run(data):
+    val = [int(i) for i in data]
+    part_a = ''.join(str(i) for i in phases(val, 100)[:8])
+    part_b = ''.join(str(i) for i in decode(val))
+    return part_a, part_b
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
@@ -56,10 +63,10 @@ if __name__ == '__main__':
     assert decode([0,3,0,8,1,7,7,0,8,8,4,9,2,1,9,5,9,7,3,1,1,6,5,4,4,6,8,5,0,5,1,7]) == [5,3,5,5,3,7,3,1]
 
     puz = Puzzle(2019, 16)
-    val = [int(i) for i in puz.input_data]
+    part_a, part_b = run(puz.input_data)
 
-    puz.answer_a = ''.join(str(i) for i in phases(val, 100)[:8])
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = ''.join(str(i) for i in decode(val))
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

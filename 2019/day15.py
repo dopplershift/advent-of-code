@@ -103,6 +103,17 @@ def find_layout(c, start):
     return layout, goal
 
 
+def run(data):
+    c = Computer.fromstring(data)
+
+    # arbitrary starting point really, just denotes a location in the grid
+    start = Point(22, 20)
+    layout, goal = find_layout(c, start)
+
+    path = astar(start, goal, layout)
+    return path.cost, fill(goal, layout)
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
@@ -115,15 +126,10 @@ if __name__ == '__main__':
     assert fill(src, test.T) == 4
 
     puz = Puzzle(2019, 15)
-    c = Computer.fromstring(puz.input_data)
+    part_a, part_b = run(puz.input_data)
 
-    # arbitrary starting point really, just denotes a location in the grid
-    start = Point(22, 20)
-    layout, goal = find_layout(c, start)
-
-    path = astar(start, goal, layout)
-    puz.answer_a = path.cost
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = fill(goal, layout)
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')

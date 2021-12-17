@@ -41,6 +41,27 @@ def inv_shuffle(pos, funcs):
     return pos
 
 
+def run(data):
+    cards = shuffle(range(10007), data.split('\n'))
+    part_a = cards.index(2019)
+
+    l = 119315717514047
+    funcs = list(inv_shuffle_funcs(l, data.split('\n')))
+
+    x = 2020
+    y = inv_shuffle(x, funcs)
+    z = inv_shuffle(y, funcs)
+
+    a = ((y - z) * pow(x - y, l - 2, l)) % l
+    b = y - a * x
+
+    n = 101741582076661
+
+    part_b = (pow(a, n, l) * x + (pow(a, n, l) - 1) * pow(a - 1, l - 2, l) * b) % l
+
+    return part_a, part_b
+
+
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
@@ -114,23 +135,10 @@ if __name__ == '__main__':
     assert inv_shuffle(3, f) == 8
 
     puz = Puzzle(2019, 22)
+    part_a, part_b = run(puz.input_data)
 
-    cards = shuffle(range(10007), puz.input_data.split('\n'))
-    puz.answer_a = cards.index(2019)
+    puz.answer_a = part_a
     print(f'Part 1: {puz.answer_a}')
 
-    l = 119315717514047
-    funcs = list(inv_shuffle_funcs(l, puz.input_data.split('\n')))
-
-    x = 2020
-    y = inv_shuffle(x, funcs)
-    z = inv_shuffle(y, funcs)
-
-    a = ((y - z) * pow(x - y, l - 2, l)) % l
-    b = y - a * x
-
-    n = 101741582076661
-
-    v = (pow(a, n, l) * x + (pow(a, n, l) - 1) * pow(a - 1, l - 2, l) * b) % l
-    puz.answer_b = v
+    puz.answer_b = part_b
     print(f'Part 2: {puz.answer_b}')
