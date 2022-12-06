@@ -115,17 +115,18 @@ def ocr(s, glyph_map=None):
 
 
 @contextlib.contextmanager
-def update_sys_path(path):
+def update_sys_path(*paths):
     """Temporarily add path to sys.path."""
-    sys.path.append(path)
+    sys.path.extend(paths)
     yield sys.path
-    sys.path.remove(path)
+    for p in paths:
+        sys.path.remove(p)
 
 
 def run_solution(year, day, data):
     import importlib
-    sol_path = Path(__file__).parent / f'{year}'
-    with update_sys_path(str(sol_path)):
+    sol_path = Path(__file__).parent
+    with update_sys_path(str(sol_path), str(sol_path / f'{year}')):
         try:
             sol = importlib.import_module(f'{year}.day{day}')
             ret = sol.run(data)
