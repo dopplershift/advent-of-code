@@ -1,9 +1,8 @@
 class Directory:
     def __init__(self, parent):
-        self._files = {}
+        self.parent = parent
         self._subdirs = {}
-        self._parent = parent
-        self._size = None
+        self._size = 0
 
     @classmethod
     def from_output(cls, output):
@@ -11,11 +10,11 @@ class Directory:
         for line in output.split('\n'):
             match line.split(' '):
                 case ['$', 'cd', '..']:
-                    pwd = pwd.up()
+                    pwd = pwd.parent
                 case ['$', 'cd', '/']:
                     pwd = root
                 case ['$', 'cd', newdir]:
-                    pwd = pwd.cd(newdir)
+                    pwd = pwd[newdir]
                 case ['$', 'ls']:
                     pass
                 case [size, name]:
@@ -25,33 +24,22 @@ class Directory:
                         pwd.add_file(name, int(size))
         return root
 
-    def add_file(self, file, size):
-        self._size = None
-        self._files[file] = size
+    def add_file(self, name, size):
+        self._size += size
 
-    def add_subdir(self, d):
-        self._size = None
-        return self._subdirs.setdefault(d, type(self)(self))
+    def add_subdir(self, name):
+        return self._subdirs.setdefault(name, type(self)(self))
 
-    def cd(self, d):
+    def __getitem__(self, d):
         return self._subdirs[d]
-
-    def up(self):
-        return self._parent
 
     @property
     def subdirs(self):
         return self._subdirs.values()
 
     @property
-    def files(self):
-        return self._files.values()
-
-    @property
     def size(self):
-        if self._size is None:
-            self._size = sum(self.files) + sum(d.size for d in self.subdirs)
-        return self._size
+        return self._size + sum(d.size for d in self.subdirs)
 
     def dirs(self):
         yield self
@@ -59,7 +47,7 @@ class Directory:
             yield from item.dirs()
 
 
-def run(data, part1_limit=100_000, part2_limit=30_000_000):
+def run(data):
     fs = Directory.from_output(data)
     needed = fs.size - (70_000_000 - 30_000_000)
     return (sum(s for d in fs.dirs() if (s := d.size) <= 100_000),
