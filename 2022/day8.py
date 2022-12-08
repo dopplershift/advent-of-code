@@ -1,74 +1,45 @@
 def parse(data):
-    return {(r, c): int(v) for r, row in enumerate(data.split('\n')) for c, v in enumerate(row)}
+    return [list(map(int, row)) for row in data.split('\n')]
+
+
+def visible(check_x, check_y, grid):
+    height = grid[check_y][check_x]
+    return (all(grid[check_y][x] < height for x in range(check_x)) or
+            all(grid[check_y][x] < height for x in range(check_x + 1, len(grid[0]))) or
+            all(grid[y][check_x] < height for y in range(check_y)) or
+            all(grid[y][check_x] < height for y in range(check_y + 1, len(grid))))
 
 
 def scan(grid):
-    rows = max(k[0] for k in grid) + 1
-    cols = max(k[-1] for k in grid) + 1
-
-    seen = set()
-    for y in range(rows):
-        tallest = -1
-        for x in range(cols):
-            if grid[y, x] > tallest:
-                seen.add((y, x))
-                tallest = grid[y, x]
-
-        tallest = -1
-        for x in range(cols - 1, -1, -1):
-            if grid[y, x] > tallest:
-                seen.add((y, x))
-                tallest = grid[y, x]
-
-    for x in range(cols):
-        tallest = -1
-        for y in range(rows):
-            if grid[y, x] > tallest:
-                seen.add((y, x))
-                tallest = grid[y, x]
-
-        tallest = -1
-        for y in range(rows - 1, -1, -1):
-            if grid[y, x] > tallest:
-                seen.add((y, x))
-                tallest = grid[y, x]
-
-    return seen
+    return sum(visible(x, y, grid) for y in range(len(grid)) for x in range(len(grid[y])))
 
 
-def score(grid):
-    rows = max(k[0] for k in grid) + 1
-    cols = max(k[-1] for k in grid) + 1
+def score(check_x, check_y, grid):
+    height = grid[check_y][check_x]
+    left = dist(lambda x: grid[check_y][x] < height, reversed(range(check_x)))
+    right = dist(lambda x: grid[check_y][x] < height, range(check_x + 1, len(grid[0])))
+    up = dist(lambda y: grid[y][check_x] < height, reversed(range(check_y)))
+    down = dist(lambda y: grid[y][check_x] < height, range(check_y + 1, len(grid)))
 
-    scores = {}
-    for (cy, cx), tree in grid.items():
-        l = 0
-        for x in range(cx - 1, -1, -1):
-            l += 1
-            if grid[cy, x] >= tree:
-                break
-        r = 0
-        for x in range(cx + 1, cols, 1):
-            r += 1
-            if grid[cy, x] >= tree:
-                break
-        d = 0
-        for y in range(cy - 1, -1, -1):
-            d += 1
-            if grid[y, cx] >= tree:
-                break
-        u = 0
-        for y in range(cy + 1, rows, 1):
-            u += 1
-            if grid[y, cx] >= tree:
-                break
-        scores[cy, cx] = l * r * u *d
-    return scores
+    return up * down * left * right
+
+
+def dist(check, seq):
+    d = 0
+    for item in seq:
+        d += 1
+        if not check(item):
+            break
+    return d
+
+
+def scenic(grid):
+    return max(score(x, y, grid) for y in range(len(grid)) for x in range(len(grid[y])))
 
 
 def run(data):
     trees = parse(data)
-    return len(scan(trees)), max(score(trees).values())
+    return scan(trees), scenic(trees)
 
 
 if __name__ == '__main__':
