@@ -1,4 +1,4 @@
-def run(s, n):
+def solve(s, n):
     s = list(map(int, s))
     for _ in range(n):
         queue = iter(s)
@@ -15,12 +15,12 @@ def run(s, n):
 if __name__ == '__main__':
     from aocd.models import Puzzle
 
-    assert run('1', 5) == '312211'
+    assert solve('1', 5) == '312211'
 
     puz = Puzzle(2015, 10)
 
-    puz.answer_a = len(run(puz.input_data, 40))
+    puz.answer_a = len(solve(puz.input_data, 40))
     print(f'Part 1: {puz.answer_a}')
 
-    puz.answer_b = len(run(puz.input_data, 50))
+    puz.answer_b = len(solve(puz.input_data, 50))
     print(f'Part 2: {puz.answer_b}')

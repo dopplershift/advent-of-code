@@ -133,10 +133,9 @@ def run_solution(year, day, data):
         except AttributeError:
             output = io.StringIO()
             with contextlib.redirect_stdout(output):
-                exec(open(sol_path / f'day{day}.py', 'rt').read(), {'__name__': '__main__'})
+                exec(open(sol_path / f'{year}' / f'day{day}.py', 'rt').read(), {'__name__': '__main__'})
             ret = tuple(res[0] for line in output.getvalue().splitlines()
                         if (res := re.findall(r'Part \d:\s?(.*)', line)))
-            ret = 'foo', 'bar'
     if day == 25:
         ret = ret + ('',)
     return ret

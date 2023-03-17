@@ -3,7 +3,7 @@ import re
 
 init_pattern = re.compile(r'value (\d+) goes to bot (\d+)', re.ASCII)
 logic_pattern = re.compile(r'bot (\d+) gives low to (bot|output) (\d+) and high to (bot|output) (\d+)', re.ASCII)
-def run(s):
+def solve(s):
     storage = {}
     logic = {}
     output = {}
@@ -47,10 +47,10 @@ bot 1 gives low to output 1 and high to bot 0
 bot 0 gives low to output 2 and high to output 0
 value 2 goes to bot 2'''
 
-    assert run(s) == ({0: 5, 1: 2, 2: 3}, 0)
+    assert solve(s) == ({0: 5, 1: 2, 2: 3}, 0)
 
     puz = Puzzle(2016, 10)
-    out, ind = run(puz.input_data)
+    out, ind = solve(puz.input_data)
 
     puz.answer_a = ind
     print('Part 1:', puz.answer_a)

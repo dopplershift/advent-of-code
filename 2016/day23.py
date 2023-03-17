@@ -12,7 +12,7 @@ def assemble(code):
 
 
 togl_instrs = {'inc': 'dec', 'dec': 'inc', 'jnz': 'cpy', 'cpy': 'jnz', 'tgl': 'inc'}
-def run(insts, **init_regs):
+def solve(insts, **init_regs):
     regs = {r:init_regs.get(r, 0) for r in 'abcd'}
     ptr = -len(insts)
     while ptr:
@@ -50,12 +50,12 @@ dec a
 dec a'''
 
     insts = list(assemble(code))
-    assert run(insts) == 3
+    assert solve(insts) == 3
 
     puz = Puzzle(2016, 23)
 
     insts = list(assemble(puz.input_data))
-    puz.answer_a = run(insts, a=7)
+    puz.answer_a = solve(insts, a=7)
     print('Part 1:', puz.answer_a)
 
     # Hack code to replace nested loops with multiplications
@@ -64,5 +64,5 @@ dec a'''
     insts[3:10] = [['cpy', 'b', 'a'], ['mul', 'd', 'a']]
     insts[7:11] = [['mul', 2, 'c']]
 
-    puz.answer_b = run(insts, a=12)
+    puz.answer_b = solve(insts, a=12)
     print('Part 2:', puz.answer_b)

@@ -45,7 +45,7 @@ class Cart:
     __repr__ = __str__
 
 
-def run(network, carts):
+def solve(network, carts):
     tick = 0
     while True:
         tick += 1
@@ -107,7 +107,7 @@ if __name__ == '__main__':
   \------/'''
     network, carts = parse(s)
 
-    crash = run(network, carts)
+    crash = solve(network, carts)
     assert crash == (7, 3)
 
     f2 = r'''/>-<\
@@ -123,7 +123,7 @@ if __name__ == '__main__':
     puz = Puzzle(2018, 13)
 
     network, carts = parse(puz.input_data)
-    puz.answer_a = ','.join(str(i) for i in run(network, carts))
+    puz.answer_a = ','.join(str(i) for i in solve(network, carts))
     print(f'Part 1: {puz.answer_a}')
 
     network, carts = parse(puz.input_data)

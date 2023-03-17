@@ -21,7 +21,7 @@ class Knot:
             case 'D':
                 self.y -= 1
 
-    def follow(self, head: Knot):
+    def follow(self, head: "Knot"):
         if (dx := head.x - self.x) > 1:
             self.x += 1
             self.y = head.y

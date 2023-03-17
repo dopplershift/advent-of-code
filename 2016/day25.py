@@ -14,7 +14,7 @@ def assemble(code):
         yield [op_name, parse(op1), parse(op2[0]) if op2 else None]
 
 
-def run(insts, **init_regs):
+def solve(insts, **init_regs):
     regs = {r:init_regs.get(r, 0) for r in 'abcd'}
     ptr = -len(insts)
     while ptr:
@@ -37,7 +37,7 @@ def run(insts, **init_regs):
 
 def find_clock(clock):
     for i in count():
-        computer = run(clock, a=i)
+        computer = solve(clock, a=i)
         prev_out = next(computer)
         correct = 0
         for out in computer:

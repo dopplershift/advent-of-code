@@ -9,7 +9,7 @@ def assemble(code):
         op_name, op1, *op2 = line.strip().split(' ')
         yield (op_name, parse(op1), parse(op2[0]) if op2 else None)
 
-def run(code, **init_regs):
+def solve(code, **init_regs):
     insts = list(assemble(code))
     regs = {r:init_regs.get(r, 0) for r in 'abcd'}
     ptr = -len(insts)
@@ -40,12 +40,12 @@ if __name__ == '__main__':
     dec a
     jnz a 2
     dec a'''
-    assert run(code) == 42
+    assert solve(code) == 42
 
     puz = Puzzle(2016, 12)
 
-    puz.answer_a = run(puz.input_data)
+    puz.answer_a = solve(puz.input_data)
     print('Part 1:', puz.answer_a)
 
-    puz.answer_b = run(puz.input_data, c=1)
+    puz.answer_b = solve(puz.input_data, c=1)
     print('Part 2:', puz.answer_b)
