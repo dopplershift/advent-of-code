@@ -3,11 +3,12 @@ channels:
   - conda-forge
 dependencies:
   - ipykernel
-  - requests
+  - urllib3
   - beautifulsoup4
+  - pebble
   - pip
   - numpy
-  - matplotlib
+  - matplotlib-base
   - scipy
   - pip:
     - advent-of-code-data
