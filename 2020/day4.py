@@ -31,7 +31,7 @@ required = {'byr': lambda v: 1920 <= int(v) <= 2002,
             'hgt': validate_height,
             'hcl': lambda v: re.match('#[0-9a-f]{6}', v) is not None,
             'ecl': validate_eye_color,
-            'pid': lambda v: re.match('^\d{9}$', v) is not None} # 'cid'
+            'pid': lambda v: re.match(r'^\d{9}$', v) is not None} # 'cid'
 
 
 def validate1(passport):

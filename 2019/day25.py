@@ -80,7 +80,7 @@ def solve(c):
             c.run('south\n')
             if 'Security Checkpoint' not in c.ascii_output:
                 # c.display_ascii()
-                return re.search('\d+', c.ascii_output)[0]
+                return re.search(r'\d+', c.ascii_output)[0]
             elif i == 1 and 'lighter' in c.ascii_output:
                 too_much.append(*subset)
             c.clear_output()
