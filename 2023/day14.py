@@ -108,8 +108,9 @@ def part2(platform):
         platform = cycle(platform)
 
     # Use the index into the sequence to figure out how long cycle is
-    ind = (n - i) % (len(loop) - loop.index(platform) + 1)
-    return loop[ind]
+    start_loop = loop.index(platform)
+    ind = (n - i) % (len(loop) - start_loop)
+    return loop[ind + start_loop]
 
 
 def run(data):
