@@ -31,6 +31,20 @@ def ext_euclid(a,b):
     return a, x, y, u, v
 
 
+def pnpoly(poly, pt):
+    """Calculate whether a point is in a polygon."""
+    test_x, test_y = pt
+    inside = False
+    for p, n in zip(poly[:-1], poly[1:]):
+        px, py = p
+        nx, ny = n
+        if (((py > test_y) != (ny > test_y)) and
+        	(test_x < (nx - px) * (test_y - py) / (ny - py) + px)):
+            inside = not inside
+
+    return inside
+
+
 # Taken from itertools stdlib docs
 def grouper(iterable, n, fillvalue=None):
     "Collect data into non-overlapping fixed-length chunks or blocks"

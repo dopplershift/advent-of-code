@@ -2,19 +2,6 @@ pipe_dirs = {'|': 'NS', '-': 'EW', 'L': 'NE', 'J': 'NW', '7': 'SW', 'F': 'SE'}
 opposite = {'N': 'S', 'S': 'N', 'E': 'W', 'W': 'E'}
 deltas = {'N': (0, -1), 'S': (0, 1), 'E': (1, 0), 'W': (-1, 0)}
 
-def pnpoly(poly, pt):
-    test_x, test_y = pt
-    inside = False
-    for p, n in zip(poly[:-1], poly[1:]):
-        px, py = p
-        nx, ny = n
-        if (((py > test_y) != (ny > test_y)) and
-        	(test_x < (nx - px) * (test_y - py) / (ny - py) + px)):
-            inside = not inside
-
-    return inside
-
-
 def walk(grid):
     for loc, val in grid.items():
         if val == 'S':
@@ -44,12 +31,29 @@ def parse(data):
     return {(x, y): c for y, row in enumerate(data.split('\n')) for x, c in enumerate(row)}
 
 
+def interior(path):
+    inside_area = perim = 0
+    prev_x, prev_y = path[-1]
+    for x, y in path:
+        dx = x - prev_x
+        dy = y - prev_y
+        prev_x, prev_y = x, y
+
+        # Trapezoid/shoelace area formula reduce to our right angle polygon
+        inside_area += y * dx
+        perim += abs(dx) + abs(dy)
+
+    # Combine with Pick's Theorem for area of a polygon with integer vertices
+    # A = intererior + boundary / 2 - 1 -> interior = A - b / 2 + 1
+    return abs(inside_area) - perim // 2 + 1
+
+
 def run(data):
     grid = parse(data)
     path = walk(grid)
     path_set = set(path)
 
-    return len(path) // 2, sum(pnpoly(path, pt) for pt in grid if pt not in path_set)
+    return len(path) // 2, interior(path)
 
 
 if __name__ == '__main__':
