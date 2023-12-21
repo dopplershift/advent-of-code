@@ -14,6 +14,11 @@ def gcd(x, y):
     return x
 
 
+def lcm(a, b):
+    """Calculate the least common multiple of two numbers."""
+    return a * b // gcd(a, b)
+
+
 def ext_euclid(a,b):
     """Extended Euclid's algorithm for GCD.
     Given input a, b the function returns d such that gcd(a,b) = d

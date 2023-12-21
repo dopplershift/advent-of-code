@@ -1,10 +1,6 @@
 from functools import reduce
 from itertools import cycle
-from aoc_tools import gcd
-
-
-def lcm(a, b):
-    return a * b // gcd(a, b)
+from aoc_tools import lcm
 
 
 def parse(data):
