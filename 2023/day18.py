@@ -13,7 +13,7 @@ def area(plan):
 
     # Combine with Pick's Theorem for area of a polygon with integer vertices
     # A = intererior + boundary / 2 - 1 -> interior = A - b / 2 + 1
-    # total = A + boundary -> A + b / 2 + 1 -> A + perim / 2 + 1
+    # total = interior + boundary -> A + b / 2 + 1 -> A + perim / 2 + 1
     return inside_area + perim // 2 + 1
 
 
